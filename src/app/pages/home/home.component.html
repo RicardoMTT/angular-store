@@ -1,0 +1,67 @@
+<!-- <app-trend></app-trend> -->
+<app-banner></app-banner>
+<div class="main-container mt-40 mb-40">
+  <ng-container *ngIf="categories$ | async">
+    <div class="container-chips">
+      <mat-chip-listbox aria-label="Fish selection">
+        <mat-chip-option
+          color="primary"
+          selected
+          class="isSelected"
+          [disabled]="this.idSelected == '3'" 
+        >
+          <div (click)="selectCategory('3')">
+            <span class="white">General</span>
+          </div>
+        </mat-chip-option>
+        <mat-chip-option
+          color="primary"
+          [disabled]="this.idSelected == category.id"
+          *ngFor="let category of categories$ | async"
+          class="isSelected"
+        >
+          <div (click)="selectCategory(category.id)">
+            <span class="white">{{ category.nombre }}</span>
+          </div>
+        </mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+  </ng-container>
+
+  <div class="container">
+    <div class="container__cards">
+      <ng-container *ngIf="products$">
+        <div
+          *ngFor="let product of products$ | async"
+          class="container__cards__total"
+        >
+          <div class="container__cards__total__item">
+            <img
+              class="container__cards__total__item__item-image"
+              src="assets/headphones-item.svg"
+              alt="product"
+            />
+            <strong class="container__cards__total__item__title"
+              >Original Beats Solo pro</strong
+            >
+            <span class="container__cards__total__item__price"
+              >Price: $333.20</span
+            >
+            <div class="container__cards__total__item__price__rating">
+              <div class="container__cards__total__item__price__rating__rate">
+                <img src="assets/product-rate.svg" alt="rate" />
+                <span>4.9</span>
+              </div>
+              <div class="container__cards__total__item__price__rating__add">
+                <div class="container__cards__total__item__price__rating__add__cart" (click)="addToCart(product)">
+                  <img src="assets/cart.svg" alt="rate" />
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

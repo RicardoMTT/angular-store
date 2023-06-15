@@ -1,0 +1,29 @@
+<div
+  class="container"
+  
+>
+  <div class="container__left">
+    <div>
+      <img src="assets/logo.svg" width="35" height="35" />
+    </div>
+    <nav>
+      <ul>
+        <li [ngClass]="currentRoute =='/' ?'underline':'no-underline'">Products</li>
+        <li [ngClass]="currentRoute =='/contact' ?'underline':'no-underline'">Contact</li>
+      </ul>
+    </nav>
+  </div>
+  <div class="container__right">
+    
+    
+    <div class="container__right__search">
+      <input type="text" placeholder="Search" />
+      <button><img src="assets/search.svg" alt="search-icon" /></button>
+    </div>
+
+
+    <div class="container__right__cart">
+      <img src="assets/cart.svg" alt="cart-icon" />
+    </div>
+  </div>
+</div>

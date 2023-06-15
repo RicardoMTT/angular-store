@@ -1,0 +1,11 @@
+<div class="product mt-40 mb-40">
+  <div class="product-image">
+    <img src="imagen_producto.jpg" alt="Imagen del Producto" />
+  </div>
+  <div class="product-details">
+    <h1 class="product-title">{{ (product$ | async)[0]?.nombre }}</h1>
+    <p class="product-price">Precio: ${{ (product$ | async)[0]?.precio }}</p>
+    <p class="product-description">{{ (product$ | async)[0]?.descripcion }}</p>
+    <a href="#" class="product-button">Agregar al Carrito</a>
+  </div>
+</div>
