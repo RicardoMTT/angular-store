@@ -1,5 +1,7 @@
+@import '../../../../styles.scss';
+
 .container{
-    background-image: url('../../../../assets/banner.svg');
+    // background-image: url('../../../../assets/banner.svg');
     background-size: cover; /* Opcional: Ajusta el tamaño de la imagen de fondo */
     background-position: center; /* Opcional: Posiciona la imagen de fondo */
     /* Otros estilos opcionales */
@@ -14,6 +16,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        justify-content: center;
+    }
 }
 .container__left img{
     width: 300px;
@@ -22,6 +28,9 @@
 .container__right{
     width: 40%;
     height: 100%;
+    @media only screen and (max-width: 600px) {
+        display: none;
+      }
 }
 .container__right__main{
     display: flex;
@@ -31,7 +40,7 @@
     justify-content: center;
 }
 .container__right__main span,strong,p{
-    color: #3734a9 ;    
+    color: $primary-color ;    
     font-family: 'Lora', serif;
 }
 .container__right__main span{

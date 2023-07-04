@@ -1,3 +1,6 @@
+@import '../../../../styles.scss';
+@import '../../utils/mixins/flex-content.scss';
+
 .container {
     // margin: 30px;
     font-family: 'Lora', serif;
@@ -5,29 +8,43 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 33px;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
-    margin: 30px;
+    @include flex(row, space-between);
+    margin-top: 0px;
+    height: 80px;
+    width: 100vw;
+    max-width: 100vw;
+    position: fixed !important;
+    background-color: $white-color;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    top: 0;
+    z-index: 1020;
 
     @media only screen and (max-width: 600px) {
         flex-direction: column;
         text-align: center;
+        // margin: 20px;
     }
 }
 
+.container__right__cart span {
+    position: relative;
+    bottom: 20px;
+    left: 30px;
+}
+
 .container__left {
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
+    background-color: $white-color;
+    @include flex(row, space-between,center);
     width: 60%;
+    padding-left: 20px;
 }
 
 .container__right {
     width: 40%;
-    display: flex;
-    justify-content: flex-end;
-    background-color: white;
+    @include flex(row, flex-end,center);
+    background-color: $white-color;
+    padding-right: 20px;
 
     @media only screen and (max-width: 600px) {
         width: 100%;
@@ -35,23 +52,25 @@
     }
 }
 
-.container__right__cart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #3734A9;
-    border-radius: 50px;
-    padding: 6px 10px;
+.container__right__cart img {
+    position: relative;
+    left: -8px;
+}
 
+.container__right__cart {
+    @include flex(row, center,center);
+    background-color: $primary-color;
+    border-radius: 50%;
+    padding: 6px 0px;
 }
 
 .container__left nav {
-    display: flex;
+    @include flex(row);
 }
 
 .container__left nav ul {
     margin: 0;
-    display: flex;
+    @include flex(row);
 }
 
 .container__left nav ul li {
@@ -59,16 +78,14 @@
     text-decoration: none;
     margin-right: 10px;
     font-family: 'Lora', serif;
-    color: #3734a9;
+    color: $primary-color;
     cursor: pointer;
 }
 
 .container__right__search {
     width: 0;
-
-    // padding: 10px 20px;
     display: flex;
-    justify-content: flex-end;
+    @include flex(row, flex-end);
     border-radius: 32px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -112,7 +129,7 @@ button {
 }
 
 .underline {
-    text-decoration: underline!important;
-    text-decoration-color: #3734a9!important;
+    text-decoration: underline !important;
+    text-decoration-color: $primary-color !important;
     padding-bottom: 2px;
 }

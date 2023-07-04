@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CartService } from 'src/app/core/cart.service';
-import { ProductsService } from 'src/app/core/products.service';
+import { CartService } from 'src/app/core/services/cart.service';
+import { CategoryService } from 'src/app/core/services/category.service';
+import { ProductsService } from 'src/app/core/services/products.service';
 
 @Component({
   selector: 'app-home',
@@ -17,22 +18,21 @@ export class HomeComponent {
   categories$: Observable<any[]> | undefined;
   constructor(
     private productsService: ProductsService,
+    private categoryService: CategoryService,
     private router: Router,
     private cartService:CartService
   ) {
-    console.log('a');
     this.isSelected = true;
   }
 
   ngOnInit() {
     this.productsService.getProducts();
+    this.categoryService.index();
     this.products$ = this.productsService.productsPublic;
-    this.categories$ = this.productsService.getCategories();
+    this.categories$ = this.categoryService.categoriesPublic
   }
 
-  selectCategory(category : any) {
-    console.log(category);
-    
+  selectCategory(category : any) {    
     if (category != null || category != undefined) {
       this.isSelected = true;
       this.idSelected = category;
@@ -40,11 +40,17 @@ export class HomeComponent {
       this.isSelected = true;
       this.idSelected = '3';
     }
-    this.productsService.getProductsByCategory(category);
+    if (category === 'all') {
+      this.productsService.getProducts();
+    }else{
+      this.productsService.getProductsByCategory(category);
+    }
   }
 
-  seeDetails(productId : any) {
-    this.router.navigate(['/product-details', productId]);
+  seeDetails(product : any) {
+    this.cartService.addToCart(product);
+    this.router.navigate(['/product-details', product.id]);
+    
   }
   addToCart(product : any) {
     console.log(product);

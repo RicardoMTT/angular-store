@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="container__left">
+    <div>
+      <a routerLink=""><img src="assets/logo.svg" width="35" height="35" /></a>
+    </div>
+    <!-- <nav>
+      <ul>
+        <li [ngClass]="currentRoute =='/' ?'underline':'no-underline'">Products</li>
+        <li [ngClass]="currentRoute =='/contact' ?'underline':'no-underline'">Contact</li>
+      </ul>
+    </nav> -->
+  </div>
+  <div class="container__right">
+    <form class="container__right__search" [formGroup]="searchForm">
+      <input formControlName="term" type="text" placeholder="Search" />
+      <button type="button"><img src="assets/search.svg" alt="search-icon" /></button>
+    </form>
+
+    <!-- <div class="container__right__cart">
+      <span>{{ quantity }}</span>
+      <a routerLink="/cart">
+        <img src="assets/cart.svg" alt="cart-icon" />
+      </a>
+    </div> -->
+  </div>
+</div>

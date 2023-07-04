@@ -1,0 +1,26 @@
+.container{
+    margin: 30px;
+}
+
+.container__item{
+    display: flex;
+    flex-direction: row;
+}
+
+.container__item__img,
+.container__item__main,
+.container__item__options{
+    width: 30%;
+}
+
+.container__item__main{
+    font-family: 'Lora', serif;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.container__item__options{
+    font-family: 'Lora', serif;
+
+}

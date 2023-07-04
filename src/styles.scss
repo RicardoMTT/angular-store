@@ -1,12 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; font-family: 'Lora', serif;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
 
-.mt-40{
+    font-family: 'Lora', serif;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+$primary-color: #3734a9;
+$white-color:#fff;
+
+
+.mt-40 {
     margin-top: 40px;
 }
 
-.mb-40{
+.mb-40 {
     margin-bottom: 40px;
+}
+
+
+.mt-96 {
+    margin-top: 96px;
 }

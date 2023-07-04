@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { CartViewComponent } from './pages/cart/cart-view/cart-view.component';
+import { CaptureOrderComponent } from './pages/cart/capture-order/capture-order.component';
+import { SearchComponent } from './pages/search/search.component';
 
 const routes: Routes = [
   {
@@ -8,7 +11,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'home',
+        path: '',
         loadChildren: () =>
           import('./pages/home/home.module').then((m) => m.HomeModule),
       },
@@ -21,8 +24,20 @@ const routes: Routes = [
           ),
       },
       {
+        path:'cart',
+        component:CartViewComponent
+      },
+      {
+        path:'capture-order',
+        component:CaptureOrderComponent
+      },
+      {
+        path:'search',
+        component:SearchComponent
+      },
+      {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '',
         pathMatch: 'full',
       },
     ],
@@ -30,7 +45,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    useHash:true
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

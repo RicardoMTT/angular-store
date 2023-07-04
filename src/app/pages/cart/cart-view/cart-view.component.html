@@ -1,0 +1,20 @@
+<div class="container">
+  <ng-container *ngIf="items">
+    <div class="container__item" *ngFor="let item of items">
+      <div class="container__item__img">
+        <img src="" alt="" />
+      </div>
+      <div class="container__item__main">
+        <span>{{ item.name }}</span>
+        <span>{{ item.price }}</span>
+      </div>
+      <div class="container__item__options">
+        <button (click)="decreaseQuantity(item)">-</button>
+        <span>{{item.quantity}}</span>
+        <button (click)="addToCart(item)">+</button>
+      </div>
+    </div>
+  </ng-container>
+
+  <button (click)="payWithPaypal()">Pay</button>
+</div>

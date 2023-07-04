@@ -1,6 +1,5 @@
-<!-- <app-trend></app-trend> -->
-<app-banner></app-banner>
-<div class="main-container mt-40 mb-40">
+<div class="main-container">
+  <app-banner></app-banner>
   <ng-container *ngIf="categories$ | async">
     <div class="container-chips">
       <mat-chip-listbox aria-label="Fish selection">
@@ -8,9 +7,9 @@
           color="primary"
           selected
           class="isSelected"
-          [disabled]="this.idSelected == '3'" 
+          [disabled]="this.idSelected == '3'"
         >
-          <div (click)="selectCategory('3')">
+          <div (click)="selectCategory('all')">
             <span class="white">General</span>
           </div>
         </mat-chip-option>
@@ -21,7 +20,7 @@
           class="isSelected"
         >
           <div (click)="selectCategory(category.id)">
-            <span class="white">{{ category.nombre }}</span>
+            <span class="white">{{ category.name }}</span>
           </div>
         </mat-chip-option>
       </mat-chip-listbox>
@@ -30,38 +29,53 @@
 
   <div class="container">
     <div class="container__cards">
-      <ng-container *ngIf="products$">
-        <div
-          *ngFor="let product of products$ | async"
-          class="container__cards__total"
-        >
-          <div class="container__cards__total__item">
-            <img
-              class="container__cards__total__item__item-image"
-              src="assets/headphones-item.svg"
-              alt="product"
-            />
-            <strong class="container__cards__total__item__title"
-              >Original Beats Solo pro</strong
-            >
-            <span class="container__cards__total__item__price"
-              >Price: $333.20</span
-            >
-            <div class="container__cards__total__item__price__rating">
-              <div class="container__cards__total__item__price__rating__rate">
-                <img src="assets/product-rate.svg" alt="rate" />
-                <span>4.9</span>
-              </div>
-              <div class="container__cards__total__item__price__rating__add">
-                <div class="container__cards__total__item__price__rating__add__cart" (click)="addToCart(product)">
-                  <img src="assets/cart.svg" alt="rate" />
-
+      <ng-container *ngIf="products$ | async as products">
+        <ng-container *ngIf="products.length > 0">
+          <div *ngFor="let product of products" class="container__cards__total">
+            <div class="container__cards__total__item" (click)="seeDetails(product)">
+              <img
+                class="container__cards__total__item__item-image"
+                src="assets/headphones-item.svg"
+                alt="product"
+              />
+              <strong class="container__cards__total__item__title"
+                >{{ product.name }}
+              </strong>
+              <span class="container__cards__total__item__price"
+                >Price: $/{{ product.price }}
+              </span>
+              <div class="container__cards__total__item__price__rating">
+                <div class="container__cards__total__item__price__rating__rate">
+                  <img src="assets/product-rate.svg" alt="rate" />
+                  <span>4.9</span>
+                </div>
+                <div class="container__cards__total__item__price__rating__add">
+                  <div
+                    class="container__cards__total__item__price__rating__add__cart"
+                    
+                  >
+                    <img src="assets/cart.svg" alt="rate" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
+
+        <ng-container *ngIf="products.length <= 0">
+          <div class="container__cards__total__item__not-found">
+            <img
+              class="container__cards__total__item__not-found-image"
+              src="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
+              alt="product"
+            />
+            <span>No hay items</span>
+          </div>
+        </ng-container>
       </ng-container>
     </div>
+  </div>
+  <div class="clients__section">
+    <app-clients></app-clients>
   </div>
 </div>

@@ -1,0 +1,51 @@
+@import '../../../core/utils/mixins/flex-content.scss';
+
+.container {
+    @include flex(row, space-evenly, center, wrap);
+    margin: 30px;
+    @media only screen and (max-width: 600px) {
+        margin: 0
+    }
+}
+
+.container__card {
+    background-color: #F5F6F8;
+    padding: 10px;
+    width: 300px;
+    border-radius: 12px;
+
+    @media only screen and (max-width: 600px) {
+        margin-top: 20px;
+        width: 100%;
+    }
+}
+
+.container__card p {
+    color: black;
+    font-family: 'Lora', serif;
+}
+
+.container__card__profile {
+    @include flex(row);
+
+}
+
+.container__card__profile img {
+    border-radius: 100%;
+}
+
+.container__card__profile__content {
+    @include flex(column);
+    padding-left: 20px;
+
+}
+
+.container__card__profile__content p {
+    font-weight: bold;
+    font-family: 'Lora', serif;
+}
+
+.container__card__profile__content span {
+    color: #97989F;
+    font-family: 'Lora', serif;
+}

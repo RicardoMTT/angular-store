@@ -1,11 +1,28 @@
-<div class="product mt-40 mb-40">
-  <div class="product-image">
-    <img src="imagen_producto.jpg" alt="Imagen del Producto" />
+<ng-container *ngIf="product$ | async as Product">
+  <div class="product mt-96 mb-40">
+    <div class="product-image">
+      <img src="assets/headphones-item.svg" alt="Imagen del Producto" />
+    </div>
+    <div class="product-details">
+      <h1 class="product-title">{{ Product.data.name }}</h1>
+      <p class="product-price">
+        {{ Product.data.price | currency }}
+      </p>
+      <p class="product-description">
+        {{ Product.data.descripcion }}
+      </p>
+
+      <span>
+        Stock:
+        <button class="btn-available">Disponible</button>
+      </span>
+      <a (click)="payWithPaypal()" class="product-button">Pagar</a>
+      <span class="tyc">
+        *Aviso sólo para usuarios extranjeros: Para realizar un envío fuera de
+        Perú, escríbenos desde nuestra página de contacto con el producto que
+        deseas comprar. Pronto contaremos con un sistema de logística
+        automatizado para pedidos del extranjero.*
+      </span>
+    </div>
   </div>
-  <div class="product-details">
-    <h1 class="product-title">{{ (product$ | async)[0]?.nombre }}</h1>
-    <p class="product-price">Precio: ${{ (product$ | async)[0]?.precio }}</p>
-    <p class="product-description">{{ (product$ | async)[0]?.descripcion }}</p>
-    <a href="#" class="product-button">Agregar al Carrito</a>
-  </div>
-</div>
+</ng-container>

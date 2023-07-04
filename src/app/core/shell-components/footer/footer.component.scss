@@ -1,0 +1,41 @@
+@import '../../../../styles.scss';
+@import '../../utils/mixins/flex-content.scss';
+footer {
+    background: $primary-color;
+    padding: 80px 0;
+}
+.container {
+    @include flex(row, center, stretch, wrap);
+}
+
+.container__first,
+.container__second,
+.container__third {
+    width: 30%;
+}
+
+.container__second__about-me {
+    @include flex(column);
+}
+.container__second__about-me span{
+    color: $white-color;
+}
+
+.container__third__contact{
+    @include flex(column);
+}
+.container__third__contact span{
+    color: $white-color;
+}
+
+.container__second__contact {
+    @include flex(column);
+}
+
+h3 {
+    color: $white-color;
+}
+
+ul {
+    list-style: none;
+}

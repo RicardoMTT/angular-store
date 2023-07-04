@@ -1,34 +1,53 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { ProductsService } from 'src/app/core/products.service';
+import { CartService } from 'src/app/core/services/cart.service';
+import { ProductsService } from 'src/app/core/services/products.service';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss']
+  styleUrls: ['./product-details.component.scss'],
 })
-export class ProductDetailsComponent {
-  id:any;
+export class ProductDetailsComponent implements OnDestroy {
+  id: any;
+  items: any = [];
+  total: number = 0;
+  totalItems: number = 0;
   product$!: Observable<any>;
-  producto:any;
+
+  producto: any;
   @ViewChild('paypal', { static: true }) paypalElement!: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private cartService: CartService
   ) {}
+  ngOnDestroy(): void {
+    console.log('a');
+
+    this.cartService.clearCart();
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.product$ = this.productsService.getProduct(this.id).pipe(
-      tap((product:any) => {
+    this.cartService.cartPublic.subscribe({
+      next: (response) => {
+        this.items = response.items;
+        this.total = response.total;
+        this.totalItems = response.totalItems;
+      },
+      error: (err: any) => {},
+    });
+    this.product$ = this.productsService.getProductById(this.id).pipe(
+      tap((product: any) => {
         console.log('product', product);
-        
+
         this.producto = {
-          descripcion: product[0].descripcion,
-          nombre: product[0].nombre,
-          precio: product[0].precio,
+          descripcion: product.data.descripcion,
+          nombre: product.data.nombre,
+          precio: product.data.precio,
           img: 'url',
         };
       })
@@ -62,5 +81,51 @@ export class ProductDetailsComponent {
     //     },
     //   })
     //   .render(this.paypalElement.nativeElement);
+  }
+
+  payWithPaypal() {
+    /* No sera necesario ya que por ahora sera un producto. */
+    // var costoTotal = this.items.reduce(function (
+    //   acumulador: any,
+    //   producto: any
+    // ) {
+    //   return acumulador + producto.price * producto.quantity;
+    // },
+    // 0);
+    const items = this.items.map((item: any) => {
+      return {
+        name: item.name,
+        quantity: item.quantity.toString(),
+        unit_amount: {
+          value: item.price.toString(),
+          currency_code: 'USD',
+        },
+      };
+    });
+
+    const orders = [
+      {
+        amount: {
+          value: this.items[0].price,
+          currency_code: 'USD',
+          breakdown: {
+            item_total: {
+              value: items.length.toString() as string,
+              currency_code: 'USD',
+            },
+          },
+        },
+        items,
+      },
+    ];
+
+    this.cartService.payWithPaypal(orders).subscribe({
+      next: (response: any) => {
+        window.location.href = response.link;
+      },
+      error(err) {
+        console.log(err);
+      },
+    });
   }
 }

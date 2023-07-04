@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CartService } from './core/cart.service';
+import { Component } from '@angular/core'; 
+import { CartService } from './core/services/cart.service';
 
 @Component({
   selector: 'app-root',
