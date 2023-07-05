@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'; 
-import { CartService } from './core/services/cart.service';
+import { LocationService } from './core/services/location.service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +8,12 @@ import { CartService } from './core/services/cart.service';
 })
 export class AppComponent {
   title = 'store-angular';
-  constructor(public cartService:CartService){}
+  constructor(public locationService:LocationService){
+    console.log('aaa');
+    this.locationService.getLocation().subscribe({
+      next: (response) => {
+        console.log(response);
+      }
+    })
+  }
 }
