@@ -2,20 +2,17 @@
   <app-banner></app-banner>
   <ng-container *ngIf="categories$ | async">
     <div class="container-chips">
-      <mat-chip-listbox aria-label="Fish selection">
+      <mat-chip-listbox aria-label="categories selection">
         <mat-chip-option
-          color="primary"
           selected
           class="isSelected"
-          [disabled]="this.idSelected == '3'"
+         
         >
           <div (click)="selectCategory('all')">
             <span class="white">General</span>
           </div>
         </mat-chip-option>
-        <mat-chip-option
-          color="primary"
-          [disabled]="this.idSelected == category.id"
+        <mat-chip-option         
           *ngFor="let category of categories$ | async"
           class="isSelected"
         >
@@ -41,9 +38,16 @@
               <strong class="container__cards__total__item__title"
                 >{{ product.name }}
               </strong>
-              <span class="container__cards__total__item__price"
+              <ng-container *ngIf="product.price !== 0 ">
+                <span class="container__cards__total__item__price"
                 >Price: $/{{ product.price }}
               </span>
+              </ng-container>
+              <ng-container *ngIf="product.price === 0 ">
+                <span class="container__cards__total__item__price"
+                >FREE
+              </span>
+              </ng-container>
               <div class="container__cards__total__item__price__rating">
                 <div class="container__cards__total__item__price__rating__rate">
                   <img src="assets/product-rate.svg" alt="rate" />
@@ -75,7 +79,10 @@
       </ng-container>
     </div>
   </div>
-  <div class="clients__section">
+  <!-- <div class="clients__section">
     <app-clients></app-clients>
-  </div>
+  </div> -->
+  
 </div>
+
+<app-sidebar></app-sidebar>

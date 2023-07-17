@@ -13,17 +13,14 @@ export class CategoryService {
 
   index() {
     this.http
-      .get('https://nest-test-railway-production.up.railway.app/category', {
-        headers: {
-          Authorization: 'Bearer test1',
-        },
-      })
+      .get('http://localhost:3000/category')
       .subscribe({
         next: (response: any) => {
           if (response) {
             this.categories$.next(response.categories);
           }
         },
+        
       });
   }
 }

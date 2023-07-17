@@ -8,9 +8,23 @@ import { TrendComponent } from './trend/trend.component';
 import { BannerComponent } from './banner/banner.component';
 import { ClientsComponent } from './clients/clients.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [HomeComponent, TrendComponent, BannerComponent, ClientsComponent,],
-  imports: [CommonModule, HomeRoutingModule,MatChipsModule,MaterialModule,FormsModule,ReactiveFormsModule],
+  declarations: [
+    HomeComponent,
+    TrendComponent,
+    BannerComponent,
+    ClientsComponent,
+    SidebarComponent,
+  ],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    MatChipsModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class HomeModule {}

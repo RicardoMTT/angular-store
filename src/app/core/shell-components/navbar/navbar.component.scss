@@ -52,16 +52,12 @@
     }
 }
 
-.container__right__cart img {
-    position: relative;
-    left: -8px;
-}
 
 .container__right__cart {
     @include flex(row, center,center);
-    background-color: $primary-color;
     border-radius: 50%;
-    padding: 6px 0px;
+    padding: 6px;
+    cursor: pointer;
 }
 
 .container__left nav {

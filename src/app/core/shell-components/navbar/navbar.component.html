@@ -15,12 +15,8 @@
       <input formControlName="term" type="text" placeholder="Search" />
       <button type="button"><img src="assets/search.svg" alt="search-icon" /></button>
     </form>
-
-    <!-- <div class="container__right__cart">
-      <span>{{ quantity }}</span>
-      <a routerLink="/cart">
-        <img src="assets/cart.svg" alt="cart-icon" />
-      </a>
-    </div> -->
+    <div class="container__right__cart">
+      <img  (click)="openSidebar()"src="assets/cart-icon.svg" alt="cart-icon" />
+    </div> 
   </div>
 </div>

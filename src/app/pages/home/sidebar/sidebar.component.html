@@ -1,0 +1,45 @@
+<ng-container *ngIf="isSidebarVisible">
+  <div
+    class="wrapper-modal-aside"
+    [ngClass]="{ 'opacity-out': toggleAside, 'opacity-in': !toggleAside }"
+    [ngStyle]="{ display: display }"
+  >
+    <aside
+      class="aside"
+      [ngClass]="{ 'animation-out': toggleAsideAnimation, 'animation-in': !toggleAsideAnimation }"
+    >
+      <!-- <img
+        class="close"
+        src="assets/images/close.svg"
+        alt="closs"
+        (click)="closeEvent($event)"
+        width="26px"
+        height="26px"
+      /> -->
+      <main>
+      
+        <form>
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="title">Carrito de compras</h3>
+            </div>
+            <div class="col-md-8 mt-3 mt-md-5"></div>
+            <div class="col-md-12 mt-4">
+              <span>
+                Aún en desarrollo
+              </span>
+            </div>
+            <div class="col-md-8"></div>
+            <div class="col-md-8"></div>
+            <div class="col-md-8"></div>
+             
+            <button (click)="closeEvent('')">cerrar</button>
+            <div class="col-md-8"></div>
+            <div class="col-md-12 mt-3 mt-md-5"></div>
+          </div>
+        </form>
+      </main>
+      <footer></footer>
+    </aside>
+  </div>
+</ng-container>

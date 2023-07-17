@@ -1,15 +1,16 @@
-<ng-container *ngIf="product$ | async as Product">
+
+ <ng-container *ngIf="product$ | async as Product">
   <div class="product mt-96 mb-40">
     <div class="product-image">
       <img src="assets/headphones-item.svg" alt="Imagen del Producto" />
     </div>
     <div class="product-details">
-      <h1 class="product-title">{{ Product.data.name }}</h1>
+      <h1 class="product-title">{{ Product.name }}</h1>
       <p class="product-price">
-        {{ Product.data.price | currency }}
+        {{ Product.price | currency }}
       </p>
       <p class="product-description">
-        {{ Product.data.descripcion }}
+        {{ Product.descripcion }}
       </p>
 
       <span>

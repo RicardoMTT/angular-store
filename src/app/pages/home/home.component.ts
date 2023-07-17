@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { CartService } from 'src/app/core/services/cart.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { ProductsService } from 'src/app/core/services/products.service';
+import { CategoriesUseCaseService } from 'src/app/domain/product/application/categories-use-case.service';
+import { GetProductByCategoryUseCaseService } from 'src/app/domain/product/application/get-products-by-category';
+import { ProductUseCaseService } from 'src/app/domain/product/application/product-use-case.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +15,8 @@ import { ProductsService } from 'src/app/core/services/products.service';
 })
 export class HomeComponent {
   isSelected:any;
-  idSelected:any;
+  idSelected:any = '';
+  isSidebarVisible: boolean = false;
 
   products$: Observable<any[]> | undefined;
   categories$: Observable<any[]> | undefined;
@@ -20,30 +24,35 @@ export class HomeComponent {
     private productsService: ProductsService,
     private categoryService: CategoryService,
     private router: Router,
-    private cartService:CartService
+    private cartService:CartService,
+    private productUseCaseService:ProductUseCaseService,
+    private getProductByCategoryUseCaseService:GetProductByCategoryUseCaseService,
+    private categoriesUseCaseService:CategoriesUseCaseService
+
   ) {
     this.isSelected = true;
   }
 
   ngOnInit() {
-    this.productsService.getProducts();
-    this.categoryService.index();
-    this.products$ = this.productsService.productsPublic;
-    this.categories$ = this.categoryService.categoriesPublic
+    this.products$ = this.productUseCaseService.getProducts(); 
+    this.cartService.sidebarVisible.subscribe((visible: boolean) => {
+      this.isSidebarVisible = visible;
+    });
+    this.categories$ = this.categoriesUseCaseService.getCategories();
   }
-
-  selectCategory(category : any) {    
+ 
+  selectCategory(category : any) {        
     if (category != null || category != undefined) {
       this.isSelected = true;
       this.idSelected = category;
     } else {
       this.isSelected = true;
-      this.idSelected = '3';
+      this.idSelected = '';
     }
     if (category === 'all') {
-      this.productsService.getProducts();
+      this.products$ = this.productUseCaseService.getProducts();
     }else{
-      this.productsService.getProductsByCategory(category);
+      this.products$ = this.getProductByCategoryUseCaseService.getProductsByCategory(category);
     }
   }
 
@@ -53,7 +62,6 @@ export class HomeComponent {
     
   }
   addToCart(product : any) {
-    console.log(product);
     this.cartService.addToCart(product);
   }
 }

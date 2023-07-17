@@ -11,7 +11,6 @@ export class CaptureOrderComponent {
 
   constructor(private route:ActivatedRoute,private cartService:CartService){
     const token = this.route.snapshot.queryParamMap.get('token');
-    console.log(token); 
     this.captureOrder(token);
   }
 

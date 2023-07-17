@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CartService } from 'src/app/core/services/cart.service';
-import { ProductsService } from 'src/app/core/services/products.service';
+import { GetProductByIdUseCaseService } from 'src/app/domain/product/application/get-product-by-id';
 
 @Component({
   selector: 'app-product-details',
@@ -21,17 +21,17 @@ export class ProductDetailsComponent implements OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private productsService: ProductsService,
-    private cartService: CartService
+    private cartService: CartService,
+    private getProductByIdUseCaseService:GetProductByIdUseCaseService
   ) {}
+  
   ngOnDestroy(): void {
-    console.log('a');
-
     this.cartService.clearCart();
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
+    this.product$ = this.getProductByIdUseCaseService.getProductById(this.id)
     this.cartService.cartPublic.subscribe({
       next: (response) => {
         this.items = response.items;
@@ -40,18 +40,18 @@ export class ProductDetailsComponent implements OnDestroy {
       },
       error: (err: any) => {},
     });
-    this.product$ = this.productsService.getProductById(this.id).pipe(
-      tap((product: any) => {
-        console.log('product', product);
+    // this.product$ = this.productsService.getProductById(this.id).pipe(
+    //   tap((product: any) => {
+    //     console.log('product', product);
 
-        this.producto = {
-          descripcion: product.data.descripcion,
-          nombre: product.data.nombre,
-          precio: product.data.precio,
-          img: 'url',
-        };
-      })
-    );
+    //     this.producto = {
+    //       descripcion: product.data.descripcion,
+    //       nombre: product.data.nombre,
+    //       precio: product.data.precio,
+    //       img: 'url',
+    //     };
+    //   })
+    // );
     // paypal
     //   .Buttons({
     //     createOrder: (data, actions) => {

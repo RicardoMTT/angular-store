@@ -63,7 +63,6 @@ export class CartViewComponent {
     
     this.cartService.payWithPaypal(orders).subscribe({
       next: (response: any) => {
-        console.log(response);
         window.location.href = response.link;
       },
       error(err) {

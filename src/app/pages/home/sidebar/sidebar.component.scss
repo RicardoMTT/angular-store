@@ -1,0 +1,160 @@
+$margin-section: 5.1875rem;
+$border-radius-options: 7px;
+$width-aside: 100%;
+
+@media screen and (max-width: 767px) {
+  $width-aside: 100%;
+}
+
+.wrapper-modal-aside {
+  position: fixed;
+  z-index: 999992;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.aside {
+  height: 100%;
+  position: fixed;
+  /* Para que comienze desde la esquina derecha*/
+  right: 0;
+  top: 0;
+  z-index: 1000;
+  overflow-y: auto;
+  background: white;
+  color: black;
+  box-shadow: 8px 0 40px 0 rgba(0, 0, 0, 0.59);
+  .close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    opacity: 1 !important;
+  }
+
+  main {
+    margin: 10% 15%;
+    font-size: 0.875rem;
+    .title {
+      margin: 0;
+      display: inline-block;
+      font-size: 1.75rem;
+      position: relative;
+    }
+  }
+}
+
+/* - - - ANIMACIONES - - - */
+/*Mueve un elemento de la izquierda a la derecha*/
+.animation-in {
+  animation: animation-left-to-right;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.animation-out {
+  animation: animation-right-to-left;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.opacity-in {
+  animation: ocapacity-in;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+}
+
+.opacity-out {
+  animation: ocapacity-out;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes animation-left-to-right {
+  from {
+    right: -$width-aside;
+  }
+
+  to {
+    right: -100;
+  }
+}
+
+@keyframes animation-right-to-left {
+  from {
+    right: 0;
+  }
+
+  to {
+    right: -$width-aside;
+  }
+}
+/*Cambiar el fondo de transparente a gris*/
+@keyframes ocapacity-in {
+  from {
+    background-color: transparent;
+  }
+
+  to {
+    background-color: rgba(0, 0, 0, 0.3);//fondo tipo modal
+  }
+}
+
+/*Cambiar el fondo de gris a transparente */
+@keyframes ocapacity-out {
+  from {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  to {
+    background-color: transparent;
+  }
+}
+
+@media (min-width: 1200px) {
+  .aside main {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .aside {
+    width: 100%;
+
+    svg {
+      width: 1rem;
+    }
+
+    main {
+      margin: 3rem 3rem 0 3rem !important;
+
+      .title {
+        font-size: 1.3rem !important;
+      }
+    }
+  }
+
+  @keyframes animation-left-to-right {
+    from {
+      right: -100%;
+    }
+
+    to {
+      right: 0;
+    }
+  }
+
+  @keyframes animation-right-to-left {
+    from {
+      right: 0;
+    }
+
+    to {
+      right: -100%;
+    }
+  }
+}
+
+
+
+ 

@@ -13,11 +13,7 @@ export class ProductsService {
   }
 
   getProducts(){    
-    this.http.get('https://nest-test-railway-production.up.railway.app/product',{
-      headers:{
-        'Authorization': 'Bearer test1'
-      }
-    }).subscribe({
+    this.http.get('https://nest-test-railway-production.up.railway.app/product').subscribe({
       next: (response:any) => {
         if (response) {
           this.products$.next(response.products)   
@@ -31,12 +27,7 @@ export class ProductsService {
     const params = new HttpParams();
     params.set('idCategory', idCategory);
     console.log(idCategory);
-    this.http.get(`https://nest-test-railway-production.up.railway.app/product/products-by-category/${idCategory}`,{
-      headers:{
-        'Authorization': 'Bearer test1'
-      },
-      
-    }).subscribe({
+    this.http.get(`http://localhost:3000/product/products-by-category/${idCategory}`).subscribe({
       next: (response:any) => {
         if (response) {
           this.products$.next(response.product)   
@@ -63,20 +54,12 @@ export class ProductsService {
   }
 
   getProductById(idProduct:any){
-    return this.http.get('https://nest-test-railway-production.up.railway.app/product/'+idProduct,{
-      headers:{
-        'Authorization': 'Bearer test1'
-      }
-    });
+    return this.http.get('http://localhost:3000/products/'+idProduct);
   }
 
   
   getProductByTerm(term:any){
-    return this.http.get('https://nest-test-railway-production.up.railway.app/product/products-by-term/'+term,{
-      headers:{
-        'Authorization': 'Bearer test1'
-      }
-    });
+    return this.http.get('https://nest-test-railway-production.up.railway.app/product/products-by-term/'+term);
   }
   
 }

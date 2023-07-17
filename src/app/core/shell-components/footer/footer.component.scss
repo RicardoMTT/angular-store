@@ -39,3 +39,20 @@ h3 {
 ul {
     list-style: none;
 }
+
+.social{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.social-copyright span{
+    color: $white-color;
+}
+.social-follow{
+    color: $white-color;
+    
+    @include flex(row,center,center);
+}
+.social-follow span ,.social-follow a{
+    margin-right: 10px;
+}
