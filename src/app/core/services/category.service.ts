@@ -10,10 +10,11 @@ export class CategoryService {
   public categoriesPublic = this.categories$.asObservable();
 
   constructor(private http: HttpClient) {}
+  private baseUrl: string = 'https://api-store-backend-nestjs.onrender.com';
 
   index() {
     this.http
-      .get('http://localhost:3000/category')
+      .get(`${this.baseUrl}/category`)
       .subscribe({
         next: (response: any) => {
           if (response) {

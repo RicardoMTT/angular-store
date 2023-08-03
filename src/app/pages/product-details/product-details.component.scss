@@ -8,10 +8,11 @@ h1 {
 .product {
   display: flex;
   align-items: center;
-  height: 400px;
+  height: auto;
 
   @media only screen and (max-width: 600px) {
     flex-direction: column;
+    margin-top: 150px;
   }
 }
 

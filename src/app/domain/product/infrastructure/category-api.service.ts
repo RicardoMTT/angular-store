@@ -7,12 +7,13 @@ import { IApiResponseCategory } from './models/category-api.model';
 
 @Injectable()
 export class CategoryApiService implements ICategoryApiService {
-    
+  private baseUrl: string = 'https://api-store-backend-nestjs.onrender.com';
+
   constructor(private http: HttpClient) {}
 
   getCategories(): Observable<IDomainRequestCategory[]> {
     return this.http.get<IApiResponseCategory[]>(
-      'http://localhost:3000/category'
+      `${this.baseUrl}/category`
     );
   }
 }

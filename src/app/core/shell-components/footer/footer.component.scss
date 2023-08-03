@@ -6,12 +6,20 @@ footer {
 }
 .container {
     @include flex(row, center, stretch, wrap);
+    @media only screen and (max-width: 600px) {
+        @include flex(column, center, stretch, wrap);
+    }
 }
 
 .container__first,
 .container__second,
 .container__third {
     width: 30%;
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        @include flex(column, center, center, wrap);
+        margin-bottom: 30px;
+    }
 }
 
 .container__second__about-me {
@@ -44,6 +52,10 @@ ul {
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
+    @media only screen and (max-width: 600px) {
+        align-items: center;
+        justify-content: space-around;
+    }
 }
 .social-copyright span{
     color: $white-color;

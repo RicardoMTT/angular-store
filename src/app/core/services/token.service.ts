@@ -13,9 +13,7 @@ export class TokenService {
     return false;
   }
 
-  setToken(token: string): void {
-    console.log('token',token);
-    
+  setToken(token: string): void {    
     localStorage.setItem('authorization', token);
   }
 

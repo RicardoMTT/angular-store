@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,12 +8,13 @@ import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
 export class ProductsService {
   private products$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public productsPublic = this.products$.asObservable();
+  private baseUrl: string = 'https://api-store-backend-nestjs.onrender.com';
 
   constructor(private http: HttpClient) {
   }
 
   getProducts(){    
-    this.http.get('https://nest-test-railway-production.up.railway.app/product').subscribe({
+    this.http.get(`${this.baseUrl}/product`).subscribe({
       next: (response:any) => {
         if (response) {
           this.products$.next(response.products)   
@@ -26,8 +27,7 @@ export class ProductsService {
   getProductsByCategory(idCategory: any) {
     const params = new HttpParams();
     params.set('idCategory', idCategory);
-    console.log(idCategory);
-    this.http.get(`http://localhost:3000/product/products-by-category/${idCategory}`).subscribe({
+    this.http.get(`${this.baseUrl}/product/products-by-category/${idCategory}`).subscribe({
       next: (response:any) => {
         if (response) {
           this.products$.next(response.product)   
@@ -54,12 +54,12 @@ export class ProductsService {
   }
 
   getProductById(idProduct:any){
-    return this.http.get('http://localhost:3000/products/'+idProduct);
+    return this.http.get(`${this.baseUrl}/products/`+idProduct);
   }
 
   
   getProductByTerm(term:any){
-    return this.http.get('https://nest-test-railway-production.up.railway.app/product/products-by-term/'+term);
+    return this.http.get(`${this.baseUrl}/product/products-by-term/`+term);
   }
   
 }

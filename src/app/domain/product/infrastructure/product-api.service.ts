@@ -10,18 +10,18 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ProductApiService implements IProductApiService {
-  //Aca podria ir los behaivourSubject
-
-  private products$: BehaviorSubject<IApiResponseProduct[]> =
-    new BehaviorSubject<IApiResponseProduct[]>([]);
+  
+  private baseUrl: string = 'https://api-store-backend-nestjs.onrender.com';
+  private products$: BehaviorSubject<IApiResponseProduct[]> = new BehaviorSubject<IApiResponseProduct[]>([]);
   public productsPublic = this.products$.asObservable();
+
 
   constructor(private http: HttpClient) {}
 
   getProductById(idProduct: any): Observable<IDomainRequestProduct> {
     return this.http
       .get<IDomainResponseProduct>(
-        'http://localhost:3000/products/' + idProduct
+        `${this.baseUrl}/products/` + idProduct
       )
       .pipe(
         map((product) => ({
@@ -35,13 +35,13 @@ export class ProductApiService implements IProductApiService {
 
   getProductsByCategory(idCategory: string): Observable<any> {
     return this.http.get(
-      `http://localhost:3000/products/products-by-category/${idCategory}`
+      `${this.baseUrl}/products/products-by-category/${idCategory}`
     );
   }
 
   getProducts(): Observable<IDomainRequestProduct[]> {
     return this.http
-      .get<IApiResponseProduct[]>('http://localhost:3000/products')
+      .get<IApiResponseProduct[]>(`${this.baseUrl}/products?limit=10&page=1`)
       .pipe(
         map((products) =>
           products.map((productApi) => ({
