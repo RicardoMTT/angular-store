@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CartViewComponent } from './pages/cart/cart-view/cart-view.component';
 import { CaptureOrderComponent } from './pages/cart/capture-order/capture-order.component';
-import { SearchComponent } from './pages/search/search.component';
 
 const routes: Routes = [
   {
@@ -19,16 +18,20 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'search',
+
+    loadChildren: () =>
+      import('./pages/search/search.module').then(
+        (m) => m.SearchModule
+      ),
+  },
+  {
     path: 'cart',
     component: CartViewComponent,
   },
   {
     path: 'capture-order',
     component: CaptureOrderComponent,
-  },
-  {
-    path: 'search',
-    component: SearchComponent,
   },
   {
     path: '',

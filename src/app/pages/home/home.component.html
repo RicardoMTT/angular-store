@@ -6,13 +6,13 @@
         <mat-chip-option
           selected
           class="isSelected"
-         
+
         >
           <div (click)="selectCategory('all')">
             <span class="white">General</span>
           </div>
         </mat-chip-option>
-        <mat-chip-option         
+        <mat-chip-option
           *ngFor="let category of categories$ | async"
           class="isSelected"
         >
@@ -56,7 +56,7 @@
                 <div class="container__cards__total__item__price__rating__add">
                   <div
                     class="container__cards__total__item__price__rating__add__cart"
-                    
+
                   >
                     <img src="assets/cart.svg" alt="rate" />
                   </div>
@@ -82,7 +82,6 @@
   <!-- <div class="clients__section">
     <app-clients></app-clients>
   </div> -->
-  
+
 </div>
 
-<app-sidebar></app-sidebar>

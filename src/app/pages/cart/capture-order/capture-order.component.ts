@@ -17,11 +17,10 @@ export class CaptureOrderComponent {
   captureOrder(token:any){
     this.cartService.captureOrder(token).subscribe({
       next:(response:any)=>{
-        console.log(response);
       },
       error: (err)=> {
         console.log(err);
-        
+
       },
     })
   }

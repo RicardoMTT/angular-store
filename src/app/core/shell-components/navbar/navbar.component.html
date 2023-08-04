@@ -11,12 +11,30 @@
     </nav> -->
   </div>
   <div class="container__right">
-    <form class="container__right__search" [formGroup]="searchForm">
-      <input formControlName="term" type="text" placeholder="Search" />
-      <button type="button"><img src="assets/search.svg" alt="search-icon" /></button>
-    </form>
+    <div class="container__right__main">
+      <form class="container__right__main__search" [formGroup]="searchForm">
+        <input formControlName="term" type="text" #searchInput  (blur)="onBlurInputSearch()" (focus)="onFocus()" placeholder="Search" />
+        <button type="button"><img src="assets/search.svg" alt="search-icon" /></button>
+      </form>
+      <div class="container-search" style="position: absolute; z-index: 99999; will-change: transform; display: block; width: 20%;border: 1px solid #cccccc;background: white;right: 20px;" *ngIf="items.length>0">
+        <div style="max-height: 750px; overflow-y: scroll;">
+            <div *ngFor="let item of items; let i = index">
+              <div (mousedown)="selectedProduct(item, $event)" style="cursor: pointer;">
+                <div style="display: flex;">
+                  <img src="https://www.zonarevol.com/wp-content/uploads/2021/06/mujer2nb-100x100.jpg" alt="shop">
+                  <div style="display: flex;flex-direction: column;justify-content: center;">
+                    <span style="color: #0066cc;font-size: 12px;">{{item.name}}</span>
+                    <span style="font-size: 12px;">S/.{{item.price}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container__right__cart">
       <img  (click)="openSidebar()"src="assets/cart-icon.svg" alt="cart-icon" />
-    </div> 
+    </div>
   </div>
 </div>

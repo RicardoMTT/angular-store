@@ -34,14 +34,14 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-    this.products$ = this.productUseCaseService.getProducts(); 
+    this.products$ = this.productUseCaseService.getProducts();
     this.cartService.sidebarVisible.subscribe((visible: boolean) => {
       this.isSidebarVisible = visible;
     });
     this.categories$ = this.categoriesUseCaseService.getCategories();
   }
- 
-  selectCategory(category : any) {        
+
+  selectCategory(category : any) {
     if (category != null || category != undefined) {
       this.isSelected = true;
       this.idSelected = category;
@@ -59,7 +59,7 @@ export class HomeComponent {
   seeDetails(product : any) {
     this.cartService.addToCart(product);
     this.router.navigate(['/product-details', product.id]);
-    
+
   }
   addToCart(product : any) {
     this.cartService.addToCart(product);

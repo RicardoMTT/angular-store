@@ -12,6 +12,7 @@ import { NavbarComponent } from './core/shell-components/navbar/navbar.component
 import { PRODUCT_API_PROVIDER } from './domain/product/infrastructure/providers/product-api.provider';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { CATEGORY_API_PROVIDER } from './domain/product/infrastructure/providers/category-api.provider';
+import { SidebarComponent } from './pages/home/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CATEGORY_API_PROVIDER } from './domain/product/infrastructure/providers
     CartViewComponent,
     FooterComponent,
     NavbarComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,

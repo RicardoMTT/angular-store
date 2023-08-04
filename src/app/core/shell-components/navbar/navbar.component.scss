@@ -78,37 +78,47 @@
     cursor: pointer;
 }
 
-.container__right__search {
-    width: 0;
+.container__right__main__search {
+    width: 170px;
+    height: 30px;
     display: flex;
     @include flex(row, flex-end);
-    border-radius: 32px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 5px;
+    border: 1px solid #ccc
+    // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.container__right__search input {
+.container__right__main__search input {
     border: 0;
     font-size: 16px;
-    width: 0;
+    width: 100px;
     transition: 0.8s;
     margin-left: 10px;
     outline: none;
 }
 
-.container__right__search:hover input {
-    width: 100px;
+.container__right__main__search:hover input {
+    // width: 100px;
 
     // padding: 10px 20px;
 }
 
-.container__right__search img {
+.container-search{
+  @media only screen and (max-width: 600px) {
+    left: 0!important;
+    width: 100%!important;
+  }
+}
+
+.container__right__main__search img {
     padding: 5px 10x;
     position: relative;
     left: -5px;
+    height: 17px;
     border: 0;
 }
 
-.container__right__search input::placeholder {
+.container__right__main__search input::placeholder {
     font-family: 'Lora', serif;
     font-style: normal;
     font-weight: 500;

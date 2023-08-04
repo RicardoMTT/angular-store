@@ -18,20 +18,27 @@ export class ProductDetailsComponent implements OnDestroy {
 
   producto: any;
   @ViewChild('paypal', { static: true }) paypalElement!: ElementRef;
+  data: any;
 
   constructor(
     private route: ActivatedRoute,
     private cartService: CartService,
     private getProductByIdUseCaseService:GetProductByIdUseCaseService
   ) {}
-  
+
   ngOnDestroy(): void {
     this.cartService.clearCart();
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.product$ = this.getProductByIdUseCaseService.getProductById(this.id)
+    const dataString = this.route.snapshot.queryParamMap.get('data');
+    if (dataString) {
+      this.data = JSON.parse(dataString);
+    }else{
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.product$ = this.getProductByIdUseCaseService.getProductById(this.id)
+    }
+
     this.cartService.cartPublic.subscribe({
       next: (response) => {
         this.items = response.items;
