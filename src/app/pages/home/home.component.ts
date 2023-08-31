@@ -39,9 +39,21 @@ export class HomeComponent {
       this.isSidebarVisible = visible;
     });
     this.categories$ = this.categoriesUseCaseService.getCategories();
+    this.categories$.subscribe({
+      next: (response) => {
+        const categories = response;
+        categories.forEach((category) =>{
+          if (category.name === "general") {
+            this.idSelected = category.id;
+          }
+        })
+
+      }
+    })
   }
 
   selectCategory(category : any) {
+
     if (category != null || category != undefined) {
       this.isSelected = true;
       this.idSelected = category;
@@ -49,7 +61,7 @@ export class HomeComponent {
       this.isSelected = true;
       this.idSelected = '';
     }
-    if (category === 'all') {
+    if (category === 4) {
       this.products$ = this.productUseCaseService.getProducts();
     }else{
       this.products$ = this.getProductByCategoryUseCaseService.getProductsByCategory(category);
@@ -57,11 +69,11 @@ export class HomeComponent {
   }
 
   seeDetails(product : any) {
-    this.cartService.addToCart(product);
+    // this.cartService.addToCart(product);
     this.router.navigate(['/product-details', product.id]);
 
   }
   addToCart(product : any) {
-    this.cartService.addToCart(product);
+    // this.cartService.addToCart(product);
   }
 }

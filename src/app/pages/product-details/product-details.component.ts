@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 import { CartService } from 'src/app/core/services/cart.service';
+import { CreateOrderUseCaseService } from 'src/app/domain/order/application/create-order-use-case.service';
 import { GetProductByIdUseCaseService } from 'src/app/domain/product/application/get-product-by-id';
 
 @Component({
@@ -20,24 +21,28 @@ export class ProductDetailsComponent implements OnDestroy {
   @ViewChild('paypal', { static: true }) paypalElement!: ElementRef;
   data: any;
 
+
   constructor(
     private route: ActivatedRoute,
     private cartService: CartService,
-    private getProductByIdUseCaseService:GetProductByIdUseCaseService
+    private getProductByIdUseCaseService:GetProductByIdUseCaseService,
+    private createOrderUseCaseService:CreateOrderUseCaseService
   ) {}
 
   ngOnDestroy(): void {
-    this.cartService.clearCart();
+    // this.cartService.clearCart();
   }
 
   ngOnInit(): void {
-    const dataString = this.route.snapshot.queryParamMap.get('data');
-    if (dataString) {
-      this.data = JSON.parse(dataString);
-    }else{
-      this.id = this.route.snapshot.paramMap.get('id');
-      this.product$ = this.getProductByIdUseCaseService.getProductById(this.id)
-    }
+
+    // Acceder a los parámetros de la URL actual
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.loadProductDetails(id);
+      }
+    })
+
 
     this.cartService.cartPublic.subscribe({
       next: (response) => {
@@ -49,7 +54,6 @@ export class ProductDetailsComponent implements OnDestroy {
     });
     // this.product$ = this.productsService.getProductById(this.id).pipe(
     //   tap((product: any) => {
-    //     console.log('product', product);
 
     //     this.producto = {
     //       descripcion: product.data.descripcion,
@@ -62,8 +66,6 @@ export class ProductDetailsComponent implements OnDestroy {
     // paypal
     //   .Buttons({
     //     createOrder: (data, actions) => {
-    //       console.log(this.producto);
-
     //       return actions.order.create({
     //         purchase_units: [
     //           {
@@ -81,13 +83,41 @@ export class ProductDetailsComponent implements OnDestroy {
     //     },
     //     onApprove: async (data, actions) => {
     //       const order = await actions.order.capture();
-    //       console.log('order', order);
     //     },
     //     onError: (err) => {
     //       console.log('err', err);
     //     },
     //   })
     //   .render(this.paypalElement.nativeElement);
+  }
+
+  private loadProductDetails(id: string): void {
+    this.product$ = this.getProductByIdUseCaseService.getProductById(id);
+  }
+
+  createOrder(item:any){
+    const items = this.items.map((item: any) => {
+      return {
+        productId: item.id,
+        quantity: item.quantity,
+        price:item.price
+      };
+    });
+    const order = {
+      shipping_details:"Llegara en 5 dias.",
+      items,
+      total:item.price,
+      subtotal:item.price
+    }
+    this.createOrderUseCaseService.createOrder(order).subscribe({
+      next: (data) => {
+        console.log('data', data);
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    });
   }
 
   payWithPaypal() {
@@ -134,5 +164,15 @@ export class ProductDetailsComponent implements OnDestroy {
         console.log(err);
       },
     });
+  }
+
+  addToCart() {
+    this.product$.subscribe({
+      next: (product) => {
+        console.log(product);
+
+        this.cartService.addToCart(product);
+      }
+    })
   }
 }

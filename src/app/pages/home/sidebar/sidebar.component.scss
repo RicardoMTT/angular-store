@@ -1,3 +1,5 @@
+@import '../../../../styles.scss';
+
 $margin-section: 5.1875rem;
 $border-radius-options: 7px;
 $width-aside: 100%;
@@ -16,13 +18,14 @@ $width-aside: 100%;
 
 .aside {
   height: 100%;
+  width: 300px;
   position: fixed;
   /* Para que comienze desde la esquina derecha*/
   right: 0;
   top: 0;
   z-index: 1000;
   overflow-y: auto;
-  background: white;
+  background: #3734a9;
   color: black;
   box-shadow: 8px 0 40px 0 rgba(0, 0, 0, 0.59);
   .close {
@@ -33,7 +36,7 @@ $width-aside: 100%;
   }
 
   main {
-    margin: 10% 15%;
+    margin: 10% 5%;
     font-size: 0.875rem;
     .title {
       margin: 0;
@@ -43,18 +46,24 @@ $width-aside: 100%;
     }
   }
 }
-
+.price-container{
+  background: $white-color;
+  border-radius: 15px;
+}
+.quantity,.title{
+  color: $white-color;
+}
 /* - - - ANIMACIONES - - - */
 /*Mueve un elemento de la izquierda a la derecha*/
 .animation-in {
   animation: animation-left-to-right;
-  animation-duration: 1s;
+  animation-duration: 0.7s;
   animation-fill-mode: forwards;
 }
 
 .animation-out {
   animation: animation-right-to-left;
-  animation-duration: 1s;
+  animation-duration: 0.7s;
   animation-fill-mode: forwards;
 }
 
@@ -118,6 +127,9 @@ $width-aside: 100%;
 }
 
 @media (max-width: 768px) {
+  .price-container{
+    margin: 3rem 1rem 0 1rem !important;
+  }
   .aside {
     width: 100%;
 
@@ -126,7 +138,7 @@ $width-aside: 100%;
     }
 
     main {
-      margin: 3rem 3rem 0 3rem !important;
+      margin: 3rem 1rem 0 1rem !important;
 
       .title {
         font-size: 1.3rem !important;
@@ -154,7 +166,43 @@ $width-aside: 100%;
     }
   }
 }
+.cart-products{
+  height: 300px;
+  padding: 25px !important;
+  @media screen and (max-width: 767px) {
+    padding: 25px 0px!important;
+  }
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.card{
+  border: 0;
+  position: relative;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 15px 20px !important;
+  height: 95px;
+  margin-bottom: 20px;
+}
+.main{
+  align-items: center;
+}
+.main img{
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+}
 
-
-
- 
+.btn-primary{
+  border: none;
+  color: $white-color;
+  background: #3734a9 !important;
+  border-radius: 15px;
+}
+.close{
+  font-weight: bold;
+  color: $white-color;
+  cursor: pointer;
+}

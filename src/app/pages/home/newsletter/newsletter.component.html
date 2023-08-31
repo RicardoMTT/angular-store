@@ -1,0 +1,12 @@
+<div class="newsletter-container">
+  <div class="newsletter-container__left">
+    <h2>Newsletter</h2>
+    <p>Obtén la información más reciente sobre productos, promociones y ofertas. Suscríbete a nuestro boletín ahora.</p>
+  </div>
+  <div class="newsletter-container__right">
+    <input type="email" name="email" [(ngModel)]="emailControl"  placeholder="email address" id="email">
+    <button (click)="sendEmail()">
+      <label for="Subscribete">Subscribete</label>
+    </button>
+  </div>
+</div>

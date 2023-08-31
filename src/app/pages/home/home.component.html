@@ -1,26 +1,18 @@
 <div class="main-container">
   <app-banner></app-banner>
+
   <ng-container *ngIf="categories$ | async">
     <div class="container-chips">
-      <mat-chip-listbox aria-label="categories selection">
-        <mat-chip-option
-          selected
-          class="isSelected"
-
-        >
-          <div (click)="selectCategory('all')">
-            <span class="white">General</span>
-          </div>
-        </mat-chip-option>
-        <mat-chip-option
-          *ngFor="let category of categories$ | async"
-          class="isSelected"
-        >
-          <div (click)="selectCategory(category.id)">
-            <span class="white">{{ category.name }}</span>
-          </div>
-        </mat-chip-option>
-      </mat-chip-listbox>
+        <div *ngFor="let category of categories$ | async"
+        class="container-chips-item"
+                [ngClass]="{
+                  'isSelected': idSelected == category.id,
+                  'white': idSelected == category.id,
+                  'black': idSelected != category.id
+                }"
+                >
+            <span (click)="selectCategory(category.id)">{{ category.name }}</span>
+        </div>
     </div>
   </ng-container>
 
@@ -29,7 +21,10 @@
       <ng-container *ngIf="products$ | async as products">
         <ng-container *ngIf="products.length > 0">
           <div *ngFor="let product of products" class="container__cards__total">
-            <div class="container__cards__total__item" (click)="seeDetails(product)">
+            <div
+              class="container__cards__total__item"
+              (click)="seeDetails(product)"
+            >
               <img
                 class="container__cards__total__item__item-image"
                 src="assets/headphones-item.svg"
@@ -38,15 +33,13 @@
               <strong class="container__cards__total__item__title"
                 >{{ product.name }}
               </strong>
-              <ng-container *ngIf="product.price !== 0 ">
+              <ng-container *ngIf="product.price !== 0">
                 <span class="container__cards__total__item__price"
-                >Price: $/{{ product.price }}
-              </span>
+                  >Price: $/{{ product.price }}
+                </span>
               </ng-container>
-              <ng-container *ngIf="product.price === 0 ">
-                <span class="container__cards__total__item__price"
-                >FREE
-              </span>
+              <ng-container *ngIf="product.price === 0">
+                <span class="container__cards__total__item__price">FREE </span>
               </ng-container>
               <div class="container__cards__total__item__price__rating">
                 <div class="container__cards__total__item__price__rating__rate">
@@ -56,7 +49,6 @@
                 <div class="container__cards__total__item__price__rating__add">
                   <div
                     class="container__cards__total__item__price__rating__add__cart"
-
                   >
                     <img src="assets/cart.svg" alt="rate" />
                   </div>
@@ -79,9 +71,6 @@
       </ng-container>
     </div>
   </div>
-  <!-- <div class="clients__section">
-    <app-clients></app-clients>
-  </div> -->
 
+  <app-newsletter></app-newsletter>
 </div>
-

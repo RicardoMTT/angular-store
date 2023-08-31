@@ -46,14 +46,8 @@ export class NavbarComponent implements OnInit {
     this.isSubmited = false;
     this.searchInput.nativeElement.select();
   }
-  onBlurInputSearch() {
+  onBlurInputSearch(){
     this.items = [];
-    // ------------------------------------------------------------
-    // Reset selected item position
-    // ------------------------------------------------------------
-    // -1 : none
-    // 0 : first
-    this.indexSearchNavigation = -1;
   }
   ngOnInit(): void {
     this.searchForm
@@ -74,6 +68,8 @@ export class NavbarComponent implements OnInit {
   }
 
   openSidebar() {
+    console.log('aaa');
+
     this.cartService.toggleSidebar();
   }
 

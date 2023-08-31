@@ -2,7 +2,7 @@
 @import '../../utils/mixins/flex-content.scss';
 footer {
     background: $primary-color;
-    padding: 80px 0;
+    padding: 95px 0;
 }
 .container {
     @include flex(row, center, stretch, wrap);
@@ -62,7 +62,7 @@ ul {
 }
 .social-follow{
     color: $white-color;
-    
+
     @include flex(row,center,center);
 }
 .social-follow span ,.social-follow a{

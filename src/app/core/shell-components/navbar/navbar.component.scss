@@ -10,7 +10,7 @@
     line-height: 33px;
     @include flex(row, space-between);
     margin-top: 0px;
-    height: 80px;
+    // height: 80px;
     width: 100vw;
     max-width: 100vw;
     position: fixed !important;
@@ -27,12 +27,27 @@
     }
 }
 
-.container__right__cart span {
-    position: relative;
-    bottom: 20px;
-    left: 30px;
-}
+// .container__right__cart span {
+//     position: relative;
+//     bottom: 20px;
+//     left: 30px;
+// }
 
+
+.counter{
+  position: absolute!important;// Esto permite colocar el contador en una posición absoluta con respecto al contenedor .image-container
+  top: 10px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgb(95, 64, 236);
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  align-items: center;
+}
 .container__left {
     background-color: $white-color;
     @include flex(row, space-between,center);
@@ -54,6 +69,7 @@
 
 
 .container__right__cart {
+    position: relative;
     @include flex(row, center,center);
     border-radius: 50%;
     padding: 6px;

@@ -13,6 +13,7 @@ import { PRODUCT_API_PROVIDER } from './domain/product/infrastructure/providers/
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { CATEGORY_API_PROVIDER } from './domain/product/infrastructure/providers/category-api.provider';
 import { SidebarComponent } from './pages/home/sidebar/sidebar.component';
+import { ORDER_API_PROVIDER } from './domain/order/infrastructure/providers/order-api.provider';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { SidebarComponent } from './pages/home/sidebar/sidebar.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [PRODUCT_API_PROVIDER, CATEGORY_API_PROVIDER,{
+  providers: [PRODUCT_API_PROVIDER, CATEGORY_API_PROVIDER,ORDER_API_PROVIDER,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

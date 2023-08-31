@@ -6,40 +6,73 @@
   >
     <aside
       class="aside"
-      [ngClass]="{ 'animation-out': toggleAsideAnimation, 'animation-in': !toggleAsideAnimation }"
+      [ngClass]="{
+        'animation-out': toggleAsideAnimation,
+        'animation-in': !toggleAsideAnimation
+      }"
     >
-      <!-- <img
-        class="close"
-        src="assets/images/close.svg"
-        alt="closs"
-        (click)="closeEvent($event)"
-        width="26px"
-        height="26px"
-      /> -->
       <main>
-      
         <form>
           <div class="row">
-            <div class="col-md-12">
-              <h3 class="title">Carrito de compras</h3>
+            <div class="col-md-12 flex justify-between">
+              <h3 class="title">Tu carrito</h3>
+              <h2 class="close" (click)="closeEvent('')">x</h2>
             </div>
-            <div class="col-md-8 mt-3 mt-md-5"></div>
-            <div class="col-md-12 mt-4">
-              <span>
-                Aún en desarrollo
-              </span>
-            </div>
-            <div class="col-md-8"></div>
-            <div class="col-md-8"></div>
-            <div class="col-md-8"></div>
-             
-            <button (click)="closeEvent('')">cerrar</button>
-            <div class="col-md-8"></div>
-            <div class="col-md-12 mt-3 mt-md-5"></div>
+            <ng-container *ngIf="items?.length>0">
+              <div class="col-md-12 mt-4 mgt-20 mgb-20">
+                <span class="quantity">
+                  Tienes {{ itemsQuantity }} artículos en tu carrito
+                </span>
+              </div>
+              <nav class="cart-products">
+                <div *ngFor="let item of items" class="card">
+                  <div class="flex main">
+                    <img
+                      src="https://static.pchujoy.com/public/img/shop/products/p3/DSC03399.webp"
+                      alt="image"
+                    />
+                    <div class="name-product mgl-10">
+                      <span>{{ item.name }}</span>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="flex space-between">
+                    <span>S/.{{ item.price }}</span>
+                    <div class="flex space-between align-center">
+                      <button (click)="incrementCart(item)">+</button>
+                      <span class="mgl-5 mgr-5">{{item.quantity}}</span>
+                      <button (click)="decrementCart(item)">-</button>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            </ng-container>
+            <ng-container *ngIf="items?.length<=0">
+              <span class="white">Carrito vacio</span>
+            </ng-container>
           </div>
         </form>
       </main>
-      <footer></footer>
+      <div class="mgl-15 mgr-15 price-container pd-15" *ngIf="items?.length>0">
+        <div class="total-price mgb-5 flex column">
+          <div class="flex space-between">
+            <span>
+              Subtotal :
+            </span>
+            <span>S/.{{totalPrice}}</span>
+          </div>
+          <div class="flex space-between">
+            <span>
+              Total :
+            </span>
+            <span>S/.{{totalPrice}}</span>
+          </div>
+        </div>
+        <div class="flex align-center justify-between">
+          <button class="btn-primary pd-10" (click)="clearCart()">Limpiar Carrito</button>
+          <button class="btn-primary pd-10">Finalizar compra</button>
+        </div>
+      </div>
     </aside>
   </div>
 </ng-container>

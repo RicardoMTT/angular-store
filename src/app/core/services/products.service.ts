@@ -9,12 +9,13 @@ export class ProductsService {
   private products$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public productsPublic = this.products$.asObservable();
   private baseUrl: string = 'https://api-store-backend-nestjs.onrender.com';
+  private localBaseUrl: string = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {
   }
 
   getProducts(){
-    this.http.get(`${this.baseUrl}/product`).subscribe({
+    this.http.get(`${this.localBaseUrl}/product`).subscribe({
       next: (response:any) => {
         if (response) {
           this.products$.next(response.products)
@@ -23,43 +24,24 @@ export class ProductsService {
     });
   }
 
-
   getProductsByCategory(idCategory: any) {
     const params = new HttpParams();
     params.set('idCategory', idCategory);
-    this.http.get(`${this.baseUrl}/product/products-by-category/${idCategory}`).subscribe({
+    this.http.get(`${this.localBaseUrl}/product/products-by-category/${idCategory}`).subscribe({
       next: (response:any) => {
         if (response) {
           this.products$.next(response.product)
         }
       }
     });
-
-
-
-    // if (idCategory == '3' || idCategory == undefined) {
-    //   this.products$.next(this.mockProducts);
-    //   return;
-    // }
-
-    // this.products$.subscribe({
-    //   next: (response) => {
-    //     let products = response.filter(p => p.idCategory == idCategory.toString())
-    //     console.log(products);
-
-    //     this.products$.next(products);
-    //   }
-    // })
-
   }
 
   getProductById(idProduct:any){
-    return this.http.get(`${this.baseUrl}/products/`+idProduct);
+    return this.http.get(`${this.localBaseUrl}/products/`+idProduct);
   }
 
-
   getProductByTerm(term:any){
-    return this.http.get(`${this.baseUrl}/products/products-by-term/`+term);
+    return this.http.get(`${this.localBaseUrl}/products/products-by-term/`+term);
   }
 
 }

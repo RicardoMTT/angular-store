@@ -10,8 +10,9 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ProductApiService implements IProductApiService {
-  
+
   private baseUrl: string = 'https://api-store-backend-nestjs.onrender.com';
+  private baseLocalUrl: string = 'http://localhost:3000';
   private products$: BehaviorSubject<IApiResponseProduct[]> = new BehaviorSubject<IApiResponseProduct[]>([]);
   public productsPublic = this.products$.asObservable();
 
@@ -21,7 +22,7 @@ export class ProductApiService implements IProductApiService {
   getProductById(idProduct: any): Observable<IDomainRequestProduct> {
     return this.http
       .get<IDomainResponseProduct>(
-        `${this.baseUrl}/products/` + idProduct
+        `${this.baseLocalUrl}/products/` + idProduct
       )
       .pipe(
         map((product) => ({
@@ -35,13 +36,13 @@ export class ProductApiService implements IProductApiService {
 
   getProductsByCategory(idCategory: string): Observable<any> {
     return this.http.get(
-      `${this.baseUrl}/products/products-by-category/${idCategory}`
+      `${this.baseLocalUrl}/products/products-by-category/${idCategory}`
     );
   }
 
   getProducts(): Observable<IDomainRequestProduct[]> {
     return this.http
-      .get<IApiResponseProduct[]>(`${this.baseUrl}/products?limit=10&page=1`)
+      .get<IApiResponseProduct[]>(`${this.baseLocalUrl}/products?limit=10&page=1`)
       .pipe(
         map((products) =>
           products.map((productApi) => ({

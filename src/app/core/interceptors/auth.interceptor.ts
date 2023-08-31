@@ -23,14 +23,29 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (!this.tokenService.isLogged()) {
-      return next.handle(request);
+
+    /*
+      |-----------------------------------------------------------------------------
+      | Api Public
+      |-----------------------------------------------------------------------------
+    */
+    if (this.isPublicApi(request)) {
+      const headers = {};
+      const backendRequest = request.clone({
+        setHeaders: headers,
+      });
+      return next.handle(backendRequest);
     }
+    /*
+      |-----------------------------------------------------------------------------
+      | Api Private
+      |-----------------------------------------------------------------------------
+    */
     // si esta autenticado verificamos la solicitud con el token
     const authorization = JSON.parse(
-      localStorage.getItem('authorization') || ''
+      localStorage.getItem('authorization') || '{}'
     );
-    
+
     const token = authorization.access_token;
 
     const newRequest = request.clone({
@@ -47,17 +62,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
           return this.authService.refreshToken(tokenJSON).pipe(
             concatMap((data: any) => {
-              const tokenJSON = {
-                access_token: data.token,
-              };
-              this.tokenService.setToken(JSON.stringify(tokenJSON));//Actualizas con el nuevo token
-              const newRequest = request.clone({
-                setHeaders: {
-                  Authorization: `Bearer ${data.token}`,
-                },
-              });
-
-              return next.handle(newRequest);//Haces nuevamente la peticion, pero con el mismo token
+              return this.handleTokenRefresh(data.token,request,next);
             })
           );
         } else {
@@ -65,5 +70,23 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       })
     );
+  }
+
+
+  private isPublicApi(request: HttpRequest<unknown>): boolean {
+    // Verificar si la URL corresponde a una API pública
+    return request.url.includes('/category') || request.url.includes('/products');
+  }
+
+  private handleTokenRefresh(token: string, request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    const tokenJSON = { access_token: token };
+    this.tokenService.setToken(JSON.stringify(tokenJSON));
+    const newRequest = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return next.handle(newRequest);
   }
 }

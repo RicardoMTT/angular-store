@@ -1,0 +1,59 @@
+@import '../../../../styles.scss';
+
+@import '../../../core/utils/mixins/flex-content.scss';
+
+.newsletter-container {
+  display: flex;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  @media only screen and (max-width: 600px) {
+    @include flex(column, center, stretch, wrap);
+  }
+}
+
+.newsletter-container__left{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  @media only screen and (max-width: 600px) {
+    width: 100%;;
+  }
+}
+.newsletter-container__right{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @media only screen and (max-width: 600px) {
+    width: 100%;;
+  }
+}
+
+.newsletter-container__left h2{
+  font-weight: bold;
+  font-size: 24px;
+  margin: 0;
+}
+.newsletter-container__left p{
+  font-size: 20px;
+}
+.newsletter-container__right input {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.newsletter-container__right button{
+  background:$primary-color;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  width: fit-content;
+  font-size: 18px;
+  height: 30px;
+  margin-top: 10px;
+  cursor: pointer;
+  min-width: 120px;
+  min-height: 35px;
+  padding: 0px!important;
+}

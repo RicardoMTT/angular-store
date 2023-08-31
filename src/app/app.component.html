@@ -4,8 +4,11 @@
   <app-footer></app-footer>
   <div class="whatsapp-btn">
     <a href="https://api.whatsapp.com/send?phone=51967728000">
-      <img src="assets/whatsapp.png" alt="wsp-icon" width="70" height="70" />
+      <img src="assets/whatsapp.png" alt="wsp-icon" width="50" height="50" />
     </a>
   </div>
 </div>
-<app-sidebar></app-sidebar>
+<!-- <ng-container *ngIf="showSidebar">
+  <app-sidebar></app-sidebar>
+</ng-container> -->
+<div #dynamicComponentContainer></div>

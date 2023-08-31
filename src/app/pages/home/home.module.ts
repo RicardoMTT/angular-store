@@ -8,6 +8,7 @@ import { TrendComponent } from './trend/trend.component';
 import { BannerComponent } from './banner/banner.component';
 import { ClientsComponent } from './clients/clients.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewsletterComponent } from './newsletter/newsletter.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TrendComponent,
     BannerComponent,
     ClientsComponent,
+    NewsletterComponent,
   ],
   imports: [
     CommonModule,

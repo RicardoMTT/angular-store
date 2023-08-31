@@ -1,7 +1,7 @@
 
  <ng-container *ngIf="product$ | async as Product">
-  <div class="product mt-96 mb-40">
-    <div class="product-image">
+  <div class="product mgt-118 mgb-40">
+    <div class="product-image mgt-30">
       <img src="assets/headphones-item.svg" alt="Imagen del Producto" />
     </div>
     <div class="product-details">
@@ -17,7 +17,12 @@
         Stock:
         <button class="btn-available">Disponible</button>
       </span>
-      <a (click)="payWithPaypal()" class="product-button">Pagar</a>
+      <div class="flex mgt-10 mgb-10">
+        <!-- <a (click)="payWithPaypal()" class="product-button">Pagar</a> -->
+        <a (click)="createOrder(Product)" class="product-button">Crear orden</a>
+        <a (click)="addToCart()" class="product-button mgl-10">Agregar al carrito</a>
+      </div>
+      <!-- <button (click)="createOrder()">crear orden</button> -->
       <span class="tyc">
         *Aviso sólo para usuarios extranjeros: Para realizar un envío fuera de
         Perú, escríbenos desde nuestra página de contacto con el producto que

@@ -19,11 +19,14 @@ h1 {
 .product-image {
   flex: 1;
   margin-right: 20px;
+  @media only screen and (max-width: 600px) {
+    margin-right: 0px!important;
+  }
 }
 
 .product-image img {
   width: 100%;
-  max-height: 200px;
+  height: auto;
   object-fit: cover;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -32,7 +35,7 @@ h1 {
 .product-details {
   flex: 2;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   margin-top: 10px;
   @media only screen and (max-width: 600px) {
     padding-left: 10px;
@@ -56,20 +59,23 @@ h1 {
 }
 
 .product-button {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px 20px;
   cursor: pointer;
   background-color: $primary-color;
   color: $white-color;
   text-decoration: none;
   border-radius: 4px;
-  width: 100px;
+  width: 150px;
+  height: 30px;
   @media only screen and (max-width: 600px) {
     width: 90%;
   }
   text-align: center;
   transition: background-color 0.3s ease;
-  margin: 10px 0;
+
 }
 
 .product-button:hover {

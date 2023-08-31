@@ -8,15 +8,18 @@ interface ICart {
   totalItems: number;
 }
 const cart: ICart = {
-  items: [],
-  total: 0,
-  totalItems: 0,
+  items: JSON.parse(localStorage.getItem('cart') || '[]'),
+  total: JSON.parse(localStorage.getItem('totalPrice') || '0'),
+  totalItems: JSON.parse(localStorage.getItem('totalItems') || '0'),
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
+  private baseUrl: string = 'https://api-store-backend-nestjs.onrender.com';
+  private localBaseUrl: string = 'http://localhost:3000';
+
   private cart$: BehaviorSubject<ICart> = new BehaviorSubject<ICart>(cart);
   public cartPublic = this.cart$.asObservable();
 
@@ -33,14 +36,14 @@ export class CartService {
   }
   payWithPaypal(products: any[]) {
     return this.http.post(
-      'http://localhost:3000/payment/create-order',
+      `${this.localBaseUrl}/payment/create-order`,
       products
     );
   }
 
   captureOrder(token: any) {
     return this.http.get(
-      'http://localhost:3000/payment/capture-order/' + token
+      `${this.localBaseUrl}/payment/capture-order/` + token
     );
   }
 
@@ -52,7 +55,7 @@ export class CartService {
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
-      : [...items, { ...product, quantity: 1 }];
+      : [...items, { ...product, quantity: 1 }];// : aun no esta en el carrito
     const totalPrice = newItems.reduce(
       (total, { price, quantity }) => total + price * quantity,
       0
@@ -69,6 +72,9 @@ export class CartService {
   }
 
   clearCart() {
+    localStorage.setItem('cart', JSON.stringify([]));
+    localStorage.setItem('totalPrice', JSON.stringify(0));
+    localStorage.setItem('totalItems', JSON.stringify(0));
     this.cart$.next({
       items: [],
       total: 0,
@@ -99,7 +105,6 @@ export class CartService {
     //       ? { ...item, quantity: item.quantity - 1 }
     //       : item
     //   ):[ ]
-    // console.log(newItems);
     // let newItems2 = newItems.filter(item => item.quantity !== 0);
     //   const totalPrice = newItems2.reduce(
     //     (total, { price, quantity }) => total + price * quantity,
