@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, switchMap, tap } from 'rxjs';
 import { CartService } from 'src/app/core/services/cart.service';
 import { CreateOrderUseCaseService } from 'src/app/domain/order/application/create-order-use-case.service';
@@ -17,6 +18,7 @@ export class ProductDetailsComponent implements OnDestroy {
   totalItems: number = 0;
   product$!: Observable<any>;
 
+  comments:any[] = [];
   producto: any;
   @ViewChild('paypal', { static: true }) paypalElement!: ElementRef;
   data: any;
@@ -26,7 +28,8 @@ export class ProductDetailsComponent implements OnDestroy {
     private route: ActivatedRoute,
     private cartService: CartService,
     private getProductByIdUseCaseService:GetProductByIdUseCaseService,
-    private createOrderUseCaseService:CreateOrderUseCaseService
+    private createOrderUseCaseService:CreateOrderUseCaseService,
+    private toastr: ToastrService
   ) {}
 
   ngOnDestroy(): void {
@@ -96,13 +99,22 @@ export class ProductDetailsComponent implements OnDestroy {
   }
 
   createOrder(item:any){
-    const items = this.items.map((item: any) => {
-      return {
-        productId: item.id,
-        quantity: item.quantity,
+    // const items = this.items.map((item: any) => {
+    //   return {
+    //     productId: item.id,
+    //     quantity: item.quantity,
+    //     price:item.price
+    //   };
+    // });
+    console.log(item);
+
+    const items = [
+      {
+        quantity:1,
+        productId:item.id,
         price:item.price
-      };
-    });
+      }
+    ]
     const order = {
       shipping_details:"Llegara en 5 dias.",
       items,
@@ -167,6 +179,7 @@ export class ProductDetailsComponent implements OnDestroy {
   }
 
   addToCart() {
+     this.toastr.success('product added to cart');
     this.product$.subscribe({
       next: (product) => {
         console.log(product);

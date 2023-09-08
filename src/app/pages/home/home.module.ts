@@ -9,6 +9,8 @@ import { BannerComponent } from './banner/banner.component';
 import { ClientsComponent } from './clients/clients.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewsletterComponent } from './newsletter/newsletter.component';
+import { LayoutModule } from 'src/app/layout/layout.module';
+import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,8 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
     HomeRoutingModule,
     MatChipsModule,
     MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
+    LayoutModule,
+    SharedModule
   ],
 })
 export class HomeModule {}

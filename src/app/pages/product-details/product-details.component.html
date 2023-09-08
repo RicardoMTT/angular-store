@@ -32,3 +32,11 @@
     </div>
   </div>
 </ng-container>
+
+<ng-container>
+  <div class="pd-20">
+    <h2>Comentarios:</h2>
+    <input type="text" name="comment" id="comment" placeholder="Ingresa un comentario...">
+    <ng-container *ngFor="let comment of comments"></ng-container>
+  </div>
+</ng-container>

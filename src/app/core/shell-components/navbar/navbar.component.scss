@@ -75,6 +75,10 @@
     padding: 6px;
     cursor: pointer;
 }
+.container__right__login{
+  margin-left: 10px;
+  cursor: pointer;
+}
 
 .container__left nav {
     @include flex(row);

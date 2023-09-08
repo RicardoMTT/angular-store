@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { debounceTime, filter } from 'rxjs';
 import { CartService } from 'src/app/core/services/cart.service';
 import { ProductsService } from 'src/app/core/services/products.service';
@@ -68,8 +68,6 @@ export class NavbarComponent implements OnInit {
   }
 
   openSidebar() {
-    console.log('aaa');
-
     this.cartService.toggleSidebar();
   }
 
