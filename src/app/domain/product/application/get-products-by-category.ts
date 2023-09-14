@@ -7,7 +7,9 @@ import { Observable } from "rxjs";
 export class GetProductByCategoryUseCaseService {
     constructor(@Inject(HTTP_PRODUCT_SERVICE) private _productApiService: IProductApiService) {}
 
-    getProductsByCategory(categoryId:any): Observable<any[]> {      		  
+    getProductsByCategory(categoryId:any): Observable<any[]> {
+      console.log('111');
+
 		//TODO: aplicar logica
 		return this._productApiService.getProductsByCategory(categoryId);
 	}

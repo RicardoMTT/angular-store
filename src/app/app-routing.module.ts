@@ -28,14 +28,14 @@ const routes: Routes = [
             (m) => m.ProductDetailsModule
           ),
       },
-      {
-        path: 'cart',
-        component: CartViewComponent,
-      },
-      {
-        path: 'capture-order',
-        component: CaptureOrderComponent,
-      },
+      // {
+      //   path: 'cart',
+      //   component: CartViewComponent,
+      // },
+      // {
+      //   path: 'capture-order',
+      //   component: CaptureOrderComponent,
+      // },
       {
         path: '',
         redirectTo: '',

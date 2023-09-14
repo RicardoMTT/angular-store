@@ -4,9 +4,11 @@
     <p>Obtén la información más reciente sobre productos, promociones y ofertas. Suscríbete a nuestro boletín ahora.</p>
   </div>
   <div class="newsletter-container__right">
-    <input type="email" name="email" [(ngModel)]="emailControl"  placeholder="email address" id="email">
-    <button (click)="sendEmail()">
-      <label for="Subscribete">Subscribete</label>
-    </button>
+    <form (ngSubmit)="sendEmail()">
+      <input type="email" name="email" [(ngModel)]="emailControl"  placeholder="email address" id="email">
+      <button  type="button" (click)="sendEmail()" class="mgl-10">
+        <label for="Subscribete">{{isLoading ? 'Enviando...' :  'Subscribete' }}</label>
+      </button>
+    </form>
   </div>
 </div>

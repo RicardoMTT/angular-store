@@ -12,14 +12,15 @@ import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+
   ],
   providers: [PRODUCT_API_PROVIDER, CATEGORY_API_PROVIDER,ORDER_API_PROVIDER,{
     provide: HTTP_INTERCEPTORS,

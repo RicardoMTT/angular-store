@@ -1,8 +1,9 @@
 import { Observable } from "rxjs";
-import { IDomainRequestProduct, IDomainResponseProduct } from "../domain/product.model";
+import { IDomainRequestProduct } from "../domain/product.model";
+import { PaginationFront } from "./product-api.service";
 
 export interface IProductApiService {
-	getProducts(): Observable<IDomainRequestProduct[]>;   
+	getProducts(pagination:PaginationFront): Observable<IDomainRequestProduct[]>;
 
 	getProductsByCategory(idCategory: string): Observable<any>;
 

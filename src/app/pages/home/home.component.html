@@ -1,25 +1,34 @@
 <div class="main-container">
   <app-banner></app-banner>
 
+
   <ng-container *ngIf="categories$ | async">
     <div class="container-chips">
-        <div *ngFor="let category of categories$ | async"
+      <div
+        *ngFor="let category of categories$ | async"
         class="container-chips-item"
-                [ngClass]="{
-                  'isSelected': idSelected == category.id,
-                  'white': idSelected == category.id,
-                  'black': idSelected != category.id
-                }"
-                >
-            <span (click)="selectCategory(category.id)">{{ category.name }}</span>
-        </div>
+        [ngClass]="{
+          isSelected: idSelected == category.id,
+          white: idSelected == category.id,
+          black: idSelected != category.id
+        }"
+      >
+        <span (click)="selectCategory(category.id)">{{ category.name }}</span>
+      </div>
     </div>
   </ng-container>
 
   <div class="container">
-    <div class="container__cards">
-      <ng-container *ngIf="products$ | async as products">
-        <ng-container *ngIf="products.length > 0">
+    <ng-container *ngIf="enableInfiniteScroll">
+      <ng-container *ngIf="products">
+        <div
+          class="container__cards"
+          infiniteScroll
+          [infiniteScrollDistance]="2"
+          [infiniteScrollThrottle]="500"
+          (scrolled)="onScroll()"
+          [scrollWindow]="true"
+        >
           <div *ngFor="let product of products" class="container__cards__total">
             <div
               class="container__cards__total__item"
@@ -56,7 +65,7 @@
               </div>
             </div>
           </div>
-        </ng-container>
+        </div>
 
         <ng-container *ngIf="products.length <= 0">
           <div class="container__cards__total__item__not-found">
@@ -69,7 +78,7 @@
           </div>
         </ng-container>
       </ng-container>
-    </div>
+    </ng-container>
   </div>
 
   <app-newsletter></app-newsletter>

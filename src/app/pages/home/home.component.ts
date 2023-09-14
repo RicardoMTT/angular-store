@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CartService } from 'src/app/core/services/cart.service';
-import { CategoryService } from 'src/app/core/services/category.service';
-import { ProductsService } from 'src/app/core/services/products.service';
 import { CategoriesUseCaseService } from 'src/app/domain/product/application/categories-use-case.service';
 import { GetProductByCategoryUseCaseService } from 'src/app/domain/product/application/get-products-by-category';
 import { ProductUseCaseService } from 'src/app/domain/product/application/product-use-case.service';
+import { PaginationFront } from 'src/app/domain/product/infrastructure/product-api.service';
 
 @Component({
   selector: 'app-home',
@@ -14,15 +13,23 @@ import { ProductUseCaseService } from 'src/app/domain/product/application/produc
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+
+  // INFINITIVE_SCROLL
+  currentPage=1;
+  itemsPerPage=3;
+
   isSelected:any;
   idSelected:any = '';
   isSidebarVisible: boolean = false;
+  products:any[] = [];
 
-  products$: Observable<any[]> | undefined;
+  products$: Subscription | undefined;
   categories$: Observable<any[]> | undefined;
+  isLoading: boolean = false;
+  enableInfiniteScroll = true;
+  category: any;
+
   constructor(
-    private productsService: ProductsService,
-    private categoryService: CategoryService,
     private router: Router,
     private cartService:CartService,
     private productUseCaseService:ProductUseCaseService,
@@ -34,10 +41,12 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-    this.products$ = this.productUseCaseService.getProducts();
+    this.loadProducts();
+
     this.cartService.sidebarVisible.subscribe((visible: boolean) => {
       this.isSidebarVisible = visible;
     });
+
     this.categories$ = this.categoriesUseCaseService.getCategories();
     this.categories$.subscribe({
       next: (response) => {
@@ -47,12 +56,46 @@ export class HomeComponent {
             this.idSelected = category.id;
           }
         })
-
       }
     })
   }
 
+  loadProducts(){
+    this.toggleLoading();
+    const pagination:PaginationFront = {
+      page:this.currentPage,
+      limit:this.itemsPerPage,
+      categoryId:4
+    }
+    this.products$ = this.productUseCaseService.getProducts(pagination).subscribe({
+      next: (response) => {
+        this.products = response;
+        this.enableInfiniteScroll = true;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.toggleLoading();
+      }
+    });
+
+  }
+
+  toggleLoading = ()=>this.isLoading=!this.isLoading;
+
+  onScroll= ()=>{
+    this.currentPage++;
+    this.appendData();
+   }
+
   selectCategory(category : any) {
+    this.category = category;
+    // Detener el evento scrolled temporalmente
+    this.enableInfiniteScroll = false;
+
+    // Realizar la lógica de selección de categoría aquí
+    // ...
 
     if (category != null || category != undefined) {
       this.isSelected = true;
@@ -62,10 +105,61 @@ export class HomeComponent {
       this.idSelected = '';
     }
     if (category === 4) {
-      this.products$ = this.productUseCaseService.getProducts();
+      this.currentPage=1;
+      this.itemsPerPage=3;
+
+      const pagination:PaginationFront = {
+        page:this.currentPage,
+        limit:this.itemsPerPage,
+        categoryId:4
+      }
+      this.productUseCaseService.getProducts(pagination).subscribe({
+        next: (response) => {
+          this.products = response;
+          // Reiniciar el evento scrolled
+          this.enableInfiniteScroll = true;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+        complete: () => {
+          this.toggleLoading();
+        }
+      });
     }else{
-      this.products$ = this.getProductByCategoryUseCaseService.getProductsByCategory(category);
+      this.currentPage=1;
+      this.itemsPerPage=3;
+
+      const pagination:PaginationFront = {
+        page:this.currentPage,
+        limit:this.itemsPerPage,
+        categoryId:category
+      }
+      this.productUseCaseService.getProducts(pagination).subscribe({
+        next: (response) => {
+          this.products = response;
+
+        // Reiniciar el evento scrolled
+        this.enableInfiniteScroll = true;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+        complete: () => {
+          this.toggleLoading();
+        }
+      });
+
+      //  this.getProductByCategoryUseCaseService.getProductsByCategory(category).subscribe({
+      //   next: (response) => {
+      //     this.products = response;
+      //   },
+      //   error: (error:any) => {
+      //     console.log('error',error);
+      //   }
+      //  });
     }
+
   }
 
   seeDetails(product : any) {
@@ -75,5 +169,27 @@ export class HomeComponent {
   }
   addToCart(product : any) {
     // this.cartService.addToCart(product);
+  }
+
+
+  appendData= ()=>{
+    this.toggleLoading();
+    const pagination:PaginationFront = {
+      page:this.currentPage,
+      limit:this.itemsPerPage,
+      categoryId: this.category ? this.category : 4
+    }
+    this.productUseCaseService.getProducts(pagination).subscribe({
+      next : (response) => {
+        this.products = [...this.products,...response];
+        this.enableInfiniteScroll = true;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.toggleLoading();
+      }
+    })
   }
 }

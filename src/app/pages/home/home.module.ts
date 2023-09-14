@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewsletterComponent } from './newsletter/newsletter.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { SharedModule } from 'src/app/shared.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SharedModule } from 'src/app/shared.module';
     MatChipsModule,
     MaterialModule,
     LayoutModule,
-    SharedModule
+    SharedModule,
+    InfiniteScrollModule
   ],
 })
 export class HomeModule {}

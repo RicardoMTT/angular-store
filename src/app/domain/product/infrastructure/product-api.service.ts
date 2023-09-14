@@ -8,6 +8,12 @@ import { HttpClient } from '@angular/common/http';
 import { IApiResponseProduct } from './models/product-api.model';
 import { Injectable } from '@angular/core';
 
+export interface PaginationFront{
+  limit:number;
+  page:number;
+  categoryId?:any,
+}
+
 @Injectable()
 export class ProductApiService implements IProductApiService {
 
@@ -35,14 +41,16 @@ export class ProductApiService implements IProductApiService {
   }
 
   getProductsByCategory(idCategory: string): Observable<any> {
+    console.log('22');
+
     return this.http.get(
       `${this.baseLocalUrl}/products/products-by-category/${idCategory}`
     );
   }
 
-  getProducts(): Observable<IDomainRequestProduct[]> {
+  getProducts(pagination:PaginationFront): Observable<IDomainRequestProduct[]> {
     return this.http
-      .get<IApiResponseProduct[]>(`${this.baseLocalUrl}/products?limit=10&page=1`)
+      .get<IApiResponseProduct[]>(`${this.baseLocalUrl}/products?limit=${pagination.limit}&page=${pagination.page}&categoryId=${pagination.categoryId}`)
       .pipe(
         map((products) =>
           products.map((productApi) => ({
