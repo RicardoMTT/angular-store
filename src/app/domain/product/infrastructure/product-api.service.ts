@@ -41,8 +41,6 @@ export class ProductApiService implements IProductApiService {
   }
 
   getProductsByCategory(idCategory: string): Observable<any> {
-    console.log('22');
-
     return this.http.get(
       `${this.baseLocalUrl}/products/products-by-category/${idCategory}`
     );

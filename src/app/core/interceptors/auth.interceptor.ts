@@ -5,15 +5,17 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { Observable, catchError, concatMap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, concatMap, throwError } from 'rxjs';
 import { TokenService } from '../services/token.service';
 import { AuthService } from '../services/auth.service';
+
 
 /*
   Permite interceptar las solicitudes HTTP antes de ser enviadas y manipularlas.
 */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+
   constructor(
     private tokenService: TokenService,
     private authService: AuthService
@@ -55,6 +57,8 @@ export class AuthInterceptor implements HttpInterceptor {
     });
     return next.handle(newRequest).pipe(
       catchError((error: any) => {
+        console.log('error: ' ,error);
+
         if (error.status === 401) {
           const tokenJSON = {
             token: token,

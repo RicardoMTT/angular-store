@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, switchMap, tap } from 'rxjs';
@@ -17,6 +18,7 @@ export class ProductDetailsComponent implements OnDestroy {
   total: number = 0;
   totalItems: number = 0;
   product$!: Observable<any>;
+  commentFormGroup!:FormGroup;
 
   comments:any[] = [];
   producto: any;
@@ -29,8 +31,17 @@ export class ProductDetailsComponent implements OnDestroy {
     private cartService: CartService,
     private getProductByIdUseCaseService:GetProductByIdUseCaseService,
     private createOrderUseCaseService:CreateOrderUseCaseService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder
+  ) {
+    this.createForm();
+  }
+
+  createForm(){
+    this.commentFormGroup = this.formBuilder.group({
+      text:['',[Validators.required]]
+    })
+  }
 
   ngOnDestroy(): void {
     // this.cartService.clearCart();
@@ -106,7 +117,6 @@ export class ProductDetailsComponent implements OnDestroy {
     //     price:item.price
     //   };
     // });
-    console.log(item);
 
     const items = [
       {
@@ -179,13 +189,21 @@ export class ProductDetailsComponent implements OnDestroy {
   }
 
   addToCart() {
-     this.toastr.success('product added to cart');
+    this.toastr.success('product added to cart');
     this.product$.subscribe({
       next: (product) => {
-        console.log(product);
-
         this.cartService.addToCart(product);
       }
     })
   }
+
+
+  /*
+    Por el momento enviar como anonimo
+  */
+  submit(){
+    console.log('xd');
+
+  }
+
 }

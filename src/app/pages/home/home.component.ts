@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CartService } from 'src/app/core/services/cart.service';
 import { CategoriesUseCaseService } from 'src/app/domain/product/application/categories-use-case.service';
-import { GetProductByCategoryUseCaseService } from 'src/app/domain/product/application/get-products-by-category';
 import { ProductUseCaseService } from 'src/app/domain/product/application/product-use-case.service';
 import { PaginationFront } from 'src/app/domain/product/infrastructure/product-api.service';
 
@@ -28,12 +27,12 @@ export class HomeComponent {
   isLoading: boolean = false;
   enableInfiniteScroll = true;
   category: any;
+  categories: any;
 
   constructor(
     private router: Router,
     private cartService:CartService,
     private productUseCaseService:ProductUseCaseService,
-    private getProductByCategoryUseCaseService:GetProductByCategoryUseCaseService,
     private categoriesUseCaseService:CategoriesUseCaseService
 
   ) {
@@ -47,17 +46,18 @@ export class HomeComponent {
       this.isSidebarVisible = visible;
     });
 
-    this.categories$ = this.categoriesUseCaseService.getCategories();
-    this.categories$.subscribe({
+     this.categoriesUseCaseService.getCategories().subscribe({
       next: (response) => {
         const categories = response;
-        categories.forEach((category) =>{
+        this.categories = response;
+        categories.forEach((category:any) =>{
           if (category.name === "general") {
             this.idSelected = category.id;
           }
         })
       }
-    })
+    });
+
   }
 
   loadProducts(){
@@ -94,8 +94,6 @@ export class HomeComponent {
     // Detener el evento scrolled temporalmente
     this.enableInfiniteScroll = false;
 
-    // Realizar la lógica de selección de categoría aquí
-    // ...
 
     if (category != null || category != undefined) {
       this.isSelected = true;
@@ -149,15 +147,6 @@ export class HomeComponent {
           this.toggleLoading();
         }
       });
-
-      //  this.getProductByCategoryUseCaseService.getProductsByCategory(category).subscribe({
-      //   next: (response) => {
-      //     this.products = response;
-      //   },
-      //   error: (error:any) => {
-      //     console.log('error',error);
-      //   }
-      //  });
     }
 
   }

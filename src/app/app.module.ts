@@ -9,6 +9,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { CATEGORY_API_PROVIDER } from './domain/product/infrastructure/providers/category-api.provider';
 import { ORDER_API_PROVIDER } from './domain/order/infrastructure/providers/order-api.provider';
 import { ToastrModule } from 'ngx-toastr';
+import { LOGIN_API_PROVIDER } from './domain/auth/infrastructure/providers/login-api.provider';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot(),
 
   ],
-  providers: [PRODUCT_API_PROVIDER, CATEGORY_API_PROVIDER,ORDER_API_PROVIDER,{
+  providers: [PRODUCT_API_PROVIDER, CATEGORY_API_PROVIDER,LOGIN_API_PROVIDER,ORDER_API_PROVIDER,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

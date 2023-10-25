@@ -27,9 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="container__right__login">
-      <img src="assets/login.png" routerLink="/auth" alt="login">
-    </div>
+
     <!--
       Establece un contexto de posicionamiento relativo para todos los elementos secundarios
       dentro de este contenedor Cuando un elemento dentro de .image-container tiene position: absolute,
@@ -38,6 +36,23 @@
     <div class="container__right__cart" (click)="openSidebar()">
       <span class="counter">{{quantity}}</span>
       <img src="assets/cart-icon.svg" alt="cart-icon" />
+    </div>
+    <div class="container__right__login" #toggleButton (click)="toggleDropdown()">
+      <img *ngIf="!data" src="assets/login.png" routerLink="/auth" alt="login">
+      <span style="color: #3734a9;">{{data}}</span>
+      <img src="assets/down-arrow.png"  alt="arrow" width="20" height="20">
+    </div>
+    <div class="dropdown-list" #dropdownList *ngIf="showList">
+      <ul>
+        <li routerLink="auth/profile">
+          <img src="assets/profile-icon.svg" alt="profile" width="20" height="20">
+          <span>Mi perfil</span>
+        </li>
+        <li>
+          <img src="assets/logout.svg" alt="logout" width="20" height="20">
+          <span>Cerrar Sesión</span>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

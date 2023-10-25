@@ -10,20 +10,22 @@ import { EmailService } from 'src/app/core/services/email.service';
 export class NewsletterComponent {
 
   emailControl:string = '';
+  nameControl:string = '';
+
   isLoading:boolean = false;
 
   constructor(private emailService:EmailService,
     private toastr: ToastrService){
-
   }
 
   sendEmail(){
     this.isLoading = true;
-    this.emailService.sendEmail(this.emailControl,'tricardo003@gmail.com','quiero informacion sobre tus productos','tema').subscribe({
+    this.emailService.sendEmail(this.emailControl,'tricardo003@gmail.com','quiero informacion sobre tus productos','tema',this.nameControl).subscribe({
       next: (value) => {
         this.isLoading = false;
         this.toastr.success('Correo enviado correctamente')
-        this.emailControl = ''
+        this.emailControl = '';
+        this.nameControl = '';
       },
       error: (err) => {
         console.log(err);

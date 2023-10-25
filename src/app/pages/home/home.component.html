@@ -2,10 +2,10 @@
   <app-banner></app-banner>
 
 
-  <ng-container *ngIf="categories$ | async">
+  <ng-container *ngIf="categories">
     <div class="container-chips">
       <div
-        *ngFor="let category of categories$ | async"
+        *ngFor="let category of categories"
         class="container-chips-item"
         [ngClass]="{
           isSelected: idSelected == category.id,

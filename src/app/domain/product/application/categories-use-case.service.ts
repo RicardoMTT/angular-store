@@ -6,7 +6,7 @@ import { HTTP_CATEGORY_SERVICE } from "../infrastructure/providers/category-api.
 export class CategoriesUseCaseService {
     constructor(@Inject(HTTP_CATEGORY_SERVICE) private _CategoryApiService: ICategoryApiService) {}
 
-    getCategories()  {        
+    getCategories()  {
 		  return this._CategoryApiService.getCategories();
-	}
+	  }
 }

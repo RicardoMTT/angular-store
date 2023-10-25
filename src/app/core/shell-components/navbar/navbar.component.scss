@@ -159,3 +159,57 @@ button {
     text-decoration-color: $primary-color !important;
     padding-bottom: 2px;
 }
+
+
+/* Estilo para el div de la lista */
+.dropdown-list {
+  position: absolute;
+  top: 60px; /* Ajusta la posición vertical según sea necesario */
+  right: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  width: 160px; /* Ajusta el ancho según sea necesario */
+  max-height: 200px; /* Altura inicial */
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  z-index: 99999;
+  // display: none; /* Inicialmente oculto */
+  border: none;
+  box-shadow: 0 2px 16px #172b4d1a;
+
+  @media only screen and (max-width: 600px) {
+    top: 105px;
+    right: 8px;
+  }
+}
+
+/* Estilo para los elementos de la lista */
+.dropdown-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  color: #000;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.dropdown-list ul li {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+}
+.dropdown-list ul li span{
+  margin-left: 5px;
+}
+.dropdown-list ul li:last-child {
+  border-bottom: none; /* Elimina el borde inferior del último elemento */
+}
+
+/* Estilo para resaltar el elemento al pasar el mouse sobre él */
+.dropdown-list ul li:hover {
+  background-color: #f0f0f0;
+}
+

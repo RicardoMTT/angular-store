@@ -1,6 +1,6 @@
 
  <ng-container *ngIf="product$ | async as Product">
-  <div class="product mgt-118 mgb-40">
+  <div class="product mgt-118 mgb-40 pdl-20 pdr-20">
     <div class="product-image mgt-30">
       <img src="assets/headphones-item.svg" alt="Imagen del Producto" />
     </div>
@@ -36,7 +36,10 @@
 <ng-container>
   <div class="pd-20">
     <h2>Comentarios:</h2>
-    <input type="text" name="comment" id="comment" placeholder="Ingresa un comentario...">
+    <form [formGroup]="commentFormGroup" (ngSubmit)="submit()">
+      <input type="text" name="comment" formControlName="text" id="comment" placeholder="Ingresa un comentario...">
+      <button type="submit">Enviar</button>
+    </form>
     <ng-container *ngFor="let comment of comments"></ng-container>
   </div>
 </ng-container>

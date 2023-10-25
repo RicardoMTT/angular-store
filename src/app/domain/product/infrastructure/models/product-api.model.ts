@@ -1,4 +1,4 @@
-//Lo que viene del exterior de la peticion http
+//Lo que viene del exterior de la peticion http, contrato de todas las APIS que estoy consumiendo
 export interface IApiRequestProduct {
 	readonly name:string;
 	readonly descripcion: string;

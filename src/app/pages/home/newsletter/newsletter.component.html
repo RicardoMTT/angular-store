@@ -6,6 +6,7 @@
   <div class="newsletter-container__right">
     <form (ngSubmit)="sendEmail()">
       <input type="email" name="email" [(ngModel)]="emailControl"  placeholder="email address" id="email">
+      <input type="text" name="name" [(ngModel)]="nameControl"  placeholder="Name" id="name">
       <button  type="button" (click)="sendEmail()" class="mgl-10">
         <label for="Subscribete">{{isLoading ? 'Enviando...' :  'Subscribete' }}</label>
       </button>

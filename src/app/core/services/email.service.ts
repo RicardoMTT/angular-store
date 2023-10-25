@@ -8,13 +8,14 @@ export class EmailService {
 
   constructor(private http:HttpClient) { }
 
-  sendEmail(from:string, to:string,description:string,subject:string){
+  sendEmail(from:string, to:string,description:string,subject:string,name:string){
     const body = {
       from,
       to,
       description,
-      subject
+      subject,
+      name
     }
-    return this.http.post<any>('https://send-email-nest.onrender.com',body)
+    return this.http.post<any>('http://127.0.0.1:3300/',body)
   }
 }
